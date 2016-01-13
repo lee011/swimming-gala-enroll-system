@@ -1,0 +1,144 @@
+<?php
+    session_start();
+    if (isset($_SESSION['username'])) {
+        $mysqli = mysqli_connect('localhost', 'guest', '', 'swimminggala');
+        mysqli_query($mysqli,"SET NAMES 'utf8'");
+        if ($res = mysqli_query($mysqli,"select * from userinfo where id = '".$_SESSION['username']."' ")) {
+            $a = mysqli_fetch_assoc($res);
+            switch ($a['sex']) {
+                case "F":
+                    $s = "女子";
+                    break;
+                case "M":
+                    $s = "男子";
+                    break;
+            }
+            switch ($a['grade']) {
+                case "A":
+                    $g = "甲組";
+                    break;
+                case "B":
+                    $g = "乙組";
+                    break;
+                case "C":
+                    $g = "丙組";
+                    break;
+                case "N":
+                    $g = "未指定組別";
+                    break;
+            } ?>
+<script>usertype = "<?=$a['type']?>";</script>
+<div class="card red" id="notsecured">
+    <div class="card-content white-text">
+        <span class="card-title">正在使用非加密連線</span>
+        <p>
+            您正在使用非加密連線。使用加密連線可確保您和伺服器之間的通訊不受任何攻擊、竊聽或干擾。為了保障您與伺服器之間資訊傳送的安全性，我們強烈建議您使用加密連線。<br />
+            注意：加密連線並不支援 Windows XP 或更舊（Firefox 除外）及 Android 2.3.6 以下系統。如您是 Windows XP 使用者但仍然想使用加密連線，請按下方連結下載 SSL 憑證並安裝在 [信任的根憑證授權]。具體安裝步驟請參閱下載的壓縮檔的 readme.html。如有疑問，請洽詢系統開發人員。
+        </p>
+    </div>
+    <div class="card-action">
+        <a class="waves-effect waves-light red-text text-lighten-5" href="https://lee011.kmdns.net/sg/">立即轉用加密連線</a>
+        <a class="waves-effect waves-light red-text text-lighten-5" href="/sslcertificates.zip">下載所需憑證</a>
+        <a class="waves-effect waves-light red-text text-lighten-5" onclick="$('#notsecured').slideUp(200)">隱藏</a>
+    </div>
+</div>
+<div class="card red" id="announce">
+    <div class="card-content white-text">
+        <span class="card-title">暫停使用公告</span>
+        <p>
+            由於電力裝置檢查關係，本系統將於 2016年01月26日, 06:00:00 至 2016年01月26日, 19:00:00 期間 (大約時間) 暫停使用。為您造成不便，我們在此致歉。<br />
+            (公告號 160109-C001)
+        </p>
+    </div>
+    <div class="card-action">
+        <a class="waves-effect waves-light red-text text-lighten-5" onclick="$('#announce').slideUp(200)">隱藏</a>
+    </div>
+</div>
+<div class="card blue-grey">
+    <div class="card-content white-text">
+        <span class="card-title">您的資訊</span>
+        <p>
+            學生編號: <?=$a['id']?><br />
+            班別與學號: <?=$a['cls']?> (<?=$a['number']?>)<br />
+            姓名: <?=$a['ename']?> <?=$a['cname']?><br />
+            組別: <?=$s?><?=$g?>
+        </p>
+    </div>
+    <div class="card-action">
+        <a id="logoutLink" class="waves-effect waves-light blue-grey-text text-lighten-5">登出</a>
+    </div>
+</div>
+<?php if ($a['grade'] != "N") { ?>
+<div class="card blue">
+    <div class="card-content white-text">
+        <span class="card-title">進入報名頁面</span>
+        <p>您可在報名頁面查閱與編輯您的報名項目。</p>
+    </div>
+    <div class="card-action">
+        <a class="waves-effect waves-light blue-text text-lighten-5" href="#enroll">進入</a>
+    </div>
+</div>
+<?php } ?>
+<div class="card indigo">
+    <div class="card-content white-text">
+        <span class="card-title">報名統計</span>
+        <p>您可在報名統計頁面查看所有班別的報名人次統計圖表。</p>
+    </div>
+    <div class="card-action">
+        <a class="waves-effect waves-light blue-text text-lighten-5" href="#stat">進入</a>
+    </div>
+</div>
+<?php if ($a['type'] == "helper" || $a['type'] == "admin") { ?>
+<div class="card teal">
+    <div class="card-content white-text">
+        <span class="card-title">管理報名資料</span>
+        <p>您可在管理報名資料頁面查閱與編輯所有學生之報名項目。</p>
+    </div>
+    <div class="card-action">
+        <a class="waves-effect waves-light teal-text text-lighten-5" href="#entries">進入</a>
+    </div>
+</div>
+<?php }
+            if ($a['type'] == "admin") { ?>
+<div class="card green">
+    <div class="card-content white-text">
+        <span class="card-title">管理項目資料</span>
+        <p>您可在此處管理報名的項目資料。</p>
+    </div>
+    <div class="card-action">
+        <a class="waves-effect waves-light green-text text-lighten-5" href="#events">進入</a>
+    </div>
+</div>
+<?php        }
+        } ?>
+<?php
+    } else { ?>
+<script>
+    if (recaptchaAvailable) {
+        grecaptcha.render(recaptchacontainer, { "sitekey": "6LcbNxMTAAAAAJqw8rngqBFCofxVjUNdfzay7Rxj", callback: tryCaptcha, "expired-callback": captchaExp, type: "audio" });
+    }
+</script>
+<div id="loginForm">
+    <p style="text-align: center; font-size: 16pt;">登入</p>
+    <div class="red white-text z-depth-1" style="text-align: center; padding: 8px; font-size: 14px;">
+        <a class="white-text" href="https://lee011.kmdns.net/sg/">為了保障資訊傳送安全性，建議您使用加密連線</a>
+    </div>
+    <div class="form-group">
+        <div class="input-field">
+            <input id="u" name="u" type="text" />
+            <label for="u">登入名稱</label>
+        </div>
+        <div class="input-field">
+            <input id="p" name="p" type="password">
+            <label for="p">密碼</label>
+        </div>
+        <span class="tooltipped" style="text-decoration: dashed; cursor: help;" data-position="bottom" data-delay="50" data-tooltip="請執行人機驗證以阻止自動程式進入系統。如有需要，請回答驗證問題。">人機驗證（由 Google 提供）：</span>
+        <div id="recaptchacontainer"></div>
+        <br />
+        <a class="waves-effect waves-light btn" id="confirm">確定</a>
+        <p>使用前請先閱讀使用說明。(右上方 <i class="material-icons" style="vertical-align: middle">more_vert</i> &gt; 說明)</p>
+    </div>
+</div>
+    <?php
+    }
+    ?>

@@ -1,0 +1,15 @@
+﻿<?php
+    session_start();
+    if (isset($_SESSION['username'])) {
+        if ($_SESSION['usertype'] == 'admin') {
+            $mysqli = mysqli_connect('localhost', 'guest', '', 'swimminggala');
+            mysqli_query($mysqli,"SET NAMES 'utf8'");
+            if ($res = mysqli_query($mysqli,"select * from events where id = '" . $_POST['id'] . "'")) {
+                $a = mysqli_fetch_assoc($res);
+                print(json_encode($a));
+            }
+        } else {
+            header("HTTP/1.1 403 Forbidden");
+        }
+    }
+?>

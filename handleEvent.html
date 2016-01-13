@@ -1,0 +1,33 @@
+﻿<?php
+    session_start();
+    if (isset($_SESSION['username'])) {
+        if ($_SESSION['usertype'] == 'admin') {
+            $mysqli = mysqli_connect('localhost', 'guest', '', 'swimminggala');
+            mysqli_query($mysqli,"SET NAMES 'utf8'");
+            if (isset($_GET["method"])) {
+                if ($_GET["method"] == "post") {
+                    if ($res = mysqli_query($mysqli,"insert into events(id,grade,ename,cname,type) values ('" . $_POST['id'] . "','" . $_POST['grade'] . "','" . $_POST['ename'] . "','" . $_POST['cname'] . "','" . $_POST['type'] . "')")) {
+                        $result = array('success' => 1);
+                    } else {
+                        $result = array('success' => 0, 'error' => array('message' => mysqli_error($mysqli), 'code' => mysqli_errno($mysqli)));
+                    }
+                } else if ($_GET["method"] == "delete") {
+                    if ($res = mysqli_query($mysqli,"delete from events where id = '" . $_POST['id'] . "'")) {
+                        $result = array('success' => 1);
+                    } else {
+                        $result = array('success' => 0, 'error' => array('message' => mysqli_error($mysqli), 'code' => mysqli_errno($mysqli)));
+                    }
+                } else if ($_GET["method"] == "put") {
+                    if ($res = mysqli_query($mysqli,"update events set ename = '" . $_POST['ename'] . "', cname = '" . $_POST['cname'] . "', grade = '" . $_POST['grade'] . "', type = '" . $_POST['type'] . "' where id = '" . $_POST['id'] . "'")) {
+                        $result = array('success' => 1, "q" => "update events set ename = '" . $_POST['ename'] . "', cname = '" . $_POST['cname'] . "', grade = '" . $_POST['grade'] . "', type = '" . $_POST['type'] . "' where id = '" . $_POST['id'] . "'");
+                    } else {
+                        $result = array('success' => 0, 'error' => array('message' => mysqli_error($mysqli), 'code' => mysqli_errno($mysqli)));
+                    }
+                }
+            }
+        } else {
+            $result = array('success' => -2);
+        }
+    }
+    print(json_encode($result));
+?>

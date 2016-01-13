@@ -1,0 +1,238 @@
+<?php
+session_start();
+if (isset($_SESSION['username'])) {
+    $dn = date_create("now");
+    $ds = date_create("2016-01-09 16:20:00");
+    $dl = date_create("2016-01-11 14:00:00");
+    $expired = ($dn > $dl);
+    $started = ($dn > $ds);
+    $mysqli = mysqli_connect('localhost', 'guest', '', 'swimminggala');
+    mysqli_query($mysqli,"SET NAMES 'utf8'");
+    if ($res = mysqli_query($mysqli,"select * from userinfo where id = '".$_SESSION['username']."' ")) {
+        $a = mysqli_fetch_assoc($res);
+        if ($a["grade"] == "N") {
+            header("HTTP/1.1 403 Forbidden");
+        } else {
+            $s = "";
+            switch ($a["sex"]) {
+                case "F":
+                    $s = "G";
+                    break;
+                case "M":
+                    $s = "B";
+                    break;
+            }
+            if ($res1 = mysqli_query($mysqli,"select * from events where grade = '". $s . $a["grade"] ."' order by id asc")) {
+                $e = mysqli_fetch_all($res1, MYSQLI_BOTH);
+            }
+            if ($res2 = mysqli_query($mysqli,"select * from entries where sid = '". $a['id'] ."' ")) {
+                $n = mysqli_fetch_assoc($res2);
+                $indv = explode(",", $n["indveids"]);
+                $d = date_create($n["updateTime"]);
+                $rel = explode(",", $n["releids"]);
+            }
+?>
+<div>
+    <ul class="tabs">
+        <li class="tab waves-effect waves-light"><a class="active" href="#enroll-select"><?=$expired?"檢視":"選取"?>報名項目</a></li>
+        <li class="tab waves-effect waves-light"><a href="#enroll-events">所有項目</a></li>
+        <li class="tab waves-effect waves-light"><a href="#enroll-notes">報名須知</a></li>
+    </ul>
+</div>
+<div id="enroll-events" style="padding-top: 48px;">
+    <ul class="collection" id="eventsCollection">
+<?php
+            foreach ($e as $ie) { ?>
+    <li class="collection-item avatar" data-id="<?=$a['id']?>">
+        <i class="material-icons circle"><?php if ($ie["type"] == "I") echo "person"; else echo "group"; ?></i>
+        <div class="title truncate tooltipped" data-position="bottom" data-delay="50" data-tooltip="<?=$ie['ename']?> <?=$ie['cname']?>"><?=$ie['ename']?> <?=$ie['cname']?></div>
+        <span>
+            項目編碼: <?=$ie['id']?><br />
+            組別: <?php switch ($ie['grade']) {
+                          case "GA":
+                              echo "女子甲組";
+                              break;
+                          case "GB":
+                              echo "女子乙組";
+                              break;
+                          case "GC":
+                              echo "女子丙組";
+                              break;
+                          case "BA":
+                              echo "男子甲組";
+                              break;
+                          case "BB":
+                              echo "男子乙組";
+                              break;
+                          case "BC":
+                              echo "男子丙組";
+                              break;
+                          case "N":
+                              echo "未指定組別";
+                              break;
+                      } ?><br />
+            </span>
+        </li>
+<?php
+            }
+?>
+    </ul>
+</div>
+<?php
+            if ($expired) {
+?>
+<div id="enroll-select" style="padding-top: 48px;">
+    <div class="card-panel red white-text">
+        報名時限已過。您現在只有查看權限。
+    </div>
+    <p>您的報名資訊於 <?=date_format($d, 'Y年m月d日, H:i:s')?> 最後更新。</p>
+    <div class="input-field">
+        <select name="firstiev" id="firstiev" class="matsel" disabled>
+            <option value="">不選取</option>
+            <?php
+                foreach ($e as $ie) {
+                    if ($ie["type"] == "I") {
+            ?>
+            <option value="<?=$ie['id']?>" <?php if ($indv[0] == $ie['id']) echo "selected"; ?>><?=$ie['ename']?> <?=$ie['cname']?></option>
+            <?php
+                    }
+                }
+            ?>
+        </select>
+        <label for="firstev">個人項目 - 第一</label>
+    </div>
+    <div class="input-field">
+        <select name="secondiev" id="secondiev" class="matsel" disabled>
+            <option value="">不選取</option>
+            <?php
+                foreach ($e as $ie) {
+                    if ($ie["type"] == "I") {
+            ?>
+            <option value="<?=$ie['id']?>" <?php if ($indv[1] == $ie['id']) echo "selected"; ?>><?=$ie['ename']?> <?=$ie['cname']?></option>
+            <?php
+                    }
+                }
+            ?>
+        </select>
+        <label for="secondiev">個人項目 - 第二</label>
+    </div>
+    <div class="input-field">
+        <select name="thirdiev" id="thirdiev" class="matsel" disabled>
+            <option value="">不選取</option>
+            <?php
+                foreach ($e as $ie) {
+                    if ($ie["type"] == "I") {
+            ?>
+            <option value="<?=$ie['id']?>" <?php if ($indv[2] == $ie['id']) echo "selected"; ?>><?=$ie['ename']?> <?=$ie['cname']?></option>
+            <?php
+                    }
+                }
+            ?>
+        </select>
+        <label for="thirdiev">個人項目 - 第三</label>
+    </div>
+    <div class="input-field">
+        <select name="rev" id="rev" class="matsel" multiple disabled>
+            <option value="" disabled selected>不選取</option>
+            <?php
+                foreach ($e as $ie) {
+                    if ($ie["type"] == "R") {
+            ?>
+            <option value="<?=$ie['id']?>" <?php foreach ($rel as $re) { if ($re == $ie['id']) echo "selected"; } ?>><?=$ie['ename']?> <?=$ie['cname']?></option>
+            <?php
+                    }
+                }
+            ?>
+        </select>
+        <label for="thirdiev">接力項目</label>
+    </div>
+    有關接力項目的填寫，請看 [報名須知]。<br />
+    <a class="waves-effect waves-light btn disabled" id="updateentry">更新</a>
+</div>
+<?php
+            } else if ($started) {
+?>
+<div id="enroll-select" style="padding-top: 48px;">
+    <p>您的報名資訊於 <?=date_format($d, 'Y年m月d日, H:i:s')?> 最後更新。</p>
+    <div class="input-field">
+        <select name="firstiev" id="firstiev" class="matsel">
+            <option value="">不選取</option>
+<?php
+                foreach ($e as $ie) { 
+                    if ($ie["type"] == "I") { ?>
+            <option value="<?=$ie['id']?>" <?php if ($indv[0] == $ie['id']) echo "selected"; ?>><?=$ie['ename']?> <?=$ie['cname']?></option>
+<?php
+                    }
+                }
+?>
+        </select>
+        <label for="firstev">個人項目 - 第一</label>
+    </div>
+    <div class="input-field">
+        <select name="secondiev" id="secondiev" class="matsel" <?php if ($indv[0] == "") echo "disabled"; ?>>
+            <option value="">不選取</option>
+<?php
+                foreach ($e as $ie) { 
+                    if ($ie["type"] == "I") { ?>
+            <option value="<?=$ie['id']?>" <?php if ($indv[1] == $ie['id']) echo "selected"; ?>><?=$ie['ename']?> <?=$ie['cname']?></option>
+<?php
+                    }
+                }
+?>
+        </select>
+        <label for="secondiev">個人項目 - 第二</label>
+    </div>
+    <div class="input-field">
+        <select name="thirdiev" id="thirdiev" class="matsel" <?php if ($indv[0] == "" || $indv[1] == "") echo "disabled"; ?>>
+            <option value="">不選取</option>
+<?php
+                foreach ($e as $ie) { 
+                    if ($ie["type"] == "I") { ?>
+            <option value="<?=$ie['id']?>" <?php if ($indv[2] == $ie['id']) echo "selected"; ?>><?=$ie['ename']?> <?=$ie['cname']?></option>
+<?php
+                    }
+                }
+?>
+        </select>
+        <label for="thirdiev">個人項目 - 第三</label>
+    </div>
+    <div class="input-field">
+        <select name="rev" id="rev" class="matsel" multiple>
+            <option value="" disabled selected>不選取</option>
+<?php
+                foreach ($e as $ie) {
+                    if ($ie["type"] == "R") { ?>
+            <option value="<?=$ie['id']?>" <?php foreach ($rel as $re) { if ($re == $ie['id']) echo "selected"; } ?>><?=$ie['ename']?> <?=$ie['cname']?></option>
+<?php
+                    }
+                }
+?>
+        </select>
+        <label for="thirdiev">接力項目</label>
+    </div>
+    有關接力項目的填寫，請看 [報名須知]。<br />
+    <a class="waves-effect waves-light btn" id="updateentry">更新</a>
+</div>
+<?php
+            } else {
+?>
+<div id="enroll-select" style="padding-top: 48px;">
+    <div class="card-panel red white-text">
+        報名時段還沒開始，請稍後再次瀏覽。
+    </div>
+</div>
+<?php
+            }
+?>
+<div id="enroll-notes" style="padding-top: 48px;">
+    <p>1. 你最多可選取 3 項個人項目。</p>
+    <p>2. 接力項目請先填寫報名表格，然後才到此系統輸入報名資料。<b>為免系統編算資料錯誤，請只安排其中一位隊員到系統輸入報名資料。</b></p>
+    <p>3. 報名時段：<?=date_format($ds, 'Y年m月d日, H:i:s')?> 到 <?=date_format($dl, 'Y年m月d日, H:i:s')?>。</p>
+</div>
+<?php
+        }
+    }
+} else {
+    header("HTTP/1.1 403 Forbidden");
+}
+?>

@@ -1,0 +1,130 @@
+﻿<?php
+    session_start();
+    if (isset($_SESSION['username'])) {
+        if ($_SESSION['usertype'] == 'admin' || $_SESSION['usertype'] == 'helper') {
+            $mysqli = mysqli_connect('localhost', 'guest', '', 'swimminggala');
+            mysqli_query($mysqli,"SET NAMES 'utf8'");
+            if ($res = mysqli_query($mysqli,"select * from userinfo where cls = '".$_POST['cls']."' and number = " . $_POST['num'] . "")) {
+                $a = mysqli_fetch_assoc($res);
+                switch ($a['sex']) {
+                    case "F":
+                        $s1 = "女子";
+                        break;
+                    case "M":
+                        $s1 = "男子";
+                        break;
+                }
+                switch ($a['grade']) {
+                    case "A":
+                        $g = "甲組";
+                        break;
+                    case "B":
+                        $g = "乙組";
+                        break;
+                    case "C":
+                        $g = "丙組";
+                        break;
+                    case "N":
+                        $g = "未指定組別";
+                        break;
+                }
+                if ($a["grade"] == "N") {
+                    header("HTTP/1.1 403 Forbidden");
+                } else {
+                    $s = "";
+                    switch ($a["sex"]) {
+                        case "F":
+                            $s = "G";
+                            break;
+                        case "M":
+                            $s = "B";
+                            break;
+                    }
+                    if ($res1 = mysqli_query($mysqli,"select * from events where grade = '". $s . $a["grade"] ."' order by id asc")) {
+                        $e = mysqli_fetch_all($res1, MYSQLI_BOTH);
+                    }
+                    if ($res2 = mysqli_query($mysqli,"SELECT entries.* from entries inner join userinfo on entries.sid = userinfo.id WHERE userinfo.cls = '" . $_POST['cls'] . "' and userinfo.number = " . $_POST['num'] . "")) {
+                        if (mysqli_num_rows($res2) == 0) die("沒有相符項目。");
+                        $n = mysqli_fetch_assoc($res2);
+                        $indv = explode(",", $n["indveids"]);
+                        $rel = explode(",", $n["releids"]);
+                        $d = date_create($n["updateTime"]);
+                    }
+?>
+<script>$("#modal3").attr("data-id", "<?=$a['id']?>");</script>
+<div>
+    <p>
+        您正在修改：<br />
+        學生編號: <?=$a['id']?><br />
+        班別與學號: <?=$a['cls']?> (<?=$a['number']?>)<br />
+        姓名: <?=$a['ename']?> <?=$a['cname']?><br />
+        組別: <?=$s1 . $g?>
+    </p>
+    <p>報名資訊於 <?=date_format($d, 'Y年m月d日, H:i:s')?> 最後更新。</p>
+    <div class="input-field">
+        <select name="afirstiev" id="afirstiev" class="matsel">
+            <option value="">不選取</option>
+<?php
+    foreach ($e as $ie) { 
+        if ($ie["type"] == "I") { ?>
+            <option value="<?=$ie['id']?>" <?php if ($indv[0] == $ie['id']) echo "selected"; ?>><?=$ie['ename']?> <?=$ie['cname']?></option>
+<?php
+        }
+    }
+?>
+        </select>
+        <label for="afirstev">個人項目 - 第一</label>
+    </div>
+    <div class="input-field">
+        <select name="asecondiev" id="asecondiev" class="matsel" <?php if ($indv[0] == "") echo "disabled"; ?>>
+            <option value="">不選取</option>
+<?php
+    foreach ($e as $ie) { 
+        if ($ie["type"] == "I") { ?>
+            <option value="<?=$ie['id']?>" <?php if ($indv[1] == $ie['id']) echo "selected"; ?>><?=$ie['ename']?> <?=$ie['cname']?></option>
+<?php
+        }
+    }
+?>
+        </select>
+        <label for="asecondiev">個人項目 - 第二</label>
+    </div>
+    <div class="input-field">
+        <select name="athirdiev" id="athirdiev" class="matsel" <?php if ($indv[0] == "" || $indv[1] == "") echo "disabled"; ?>>
+            <option value="">不選取</option>
+<?php
+    foreach ($e as $ie) { 
+        if ($ie["type"] == "I") { ?>
+            <option value="<?=$ie['id']?>" <?php if ($indv[2] == $ie['id']) echo "selected"; ?>><?=$ie['ename']?> <?=$ie['cname']?></option>
+<?php
+        }
+    }
+?>
+        </select>
+        <label for="athirdiev">個人項目 - 第三</label>
+    </div>
+    <div class="input-field">
+        <select name="rev" id="rev" class="matsel" multiple>
+            <option value="" disabled selected>不選取</option>
+<?php
+    foreach ($e as $ie) {
+        if ($ie["type"] == "R") { ?>
+            <option value="<?=$ie['id']?>" <?php foreach ($rel as $re) { if ($re == $ie['id']) echo "selected"; } ?>><?=$ie['ename']?> <?=$ie['cname']?></option>
+<?php
+        }
+    }
+?>
+        </select>
+        <label for="thirdiev">接力項目</label>
+    </div>
+</div>
+<?php
+                }
+            }
+        } else {
+            header("HTTP/1.1 403 Forbidden");
+        }
+    } else {
+        header("HTTP/1.1 403 Forbidden");
+    }
+?>
