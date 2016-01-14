@@ -28,20 +28,6 @@
                     break;
             } ?>
 <script>usertype = "<?=$a['type']?>";</script>
-<div class="card red" id="notsecured">
-    <div class="card-content white-text">
-        <span class="card-title">正在使用非加密連線</span>
-        <p>
-            您正在使用非加密連線。使用加密連線可確保您和伺服器之間的通訊不受任何攻擊、竊聽或干擾。為了保障您與伺服器之間資訊傳送的安全性，我們強烈建議您使用加密連線。<br />
-            注意：加密連線並不支援 Windows XP 或更舊（Firefox 除外）及 Android 2.3.6 以下系統。如您是 Windows XP 使用者但仍然想使用加密連線，請按下方連結下載 SSL 憑證並安裝在 [信任的根憑證授權]。具體安裝步驟請參閱下載的壓縮檔的 readme.html。如有疑問，請洽詢系統開發人員。
-        </p>
-    </div>
-    <div class="card-action">
-        <a class="waves-effect waves-light red-text text-lighten-5" href="https://lee011.kmdns.net/sg/">立即轉用加密連線</a>
-        <a class="waves-effect waves-light red-text text-lighten-5" href="/sslcertificates.zip">下載所需憑證</a>
-        <a class="waves-effect waves-light red-text text-lighten-5" onclick="$('#notsecured').slideUp(200)">隱藏</a>
-    </div>
-</div>
 <div class="card red" id="announce">
     <div class="card-content white-text">
         <span class="card-title">暫停使用公告</span>
@@ -120,9 +106,6 @@
 </script>
 <div id="loginForm">
     <p style="text-align: center; font-size: 16pt;">登入</p>
-    <div class="red white-text z-depth-1" style="text-align: center; padding: 8px; font-size: 14px;">
-        <a class="white-text" href="https://lee011.kmdns.net/sg/">為了保障資訊傳送安全性，建議您使用加密連線</a>
-    </div>
     <div class="form-group">
         <div class="input-field">
             <input id="u" name="u" type="text" />
