@@ -44,7 +44,6 @@
     <div class="card-content white-text">
         <span class="card-title">您的資訊</span>
         <p>
-            學生編號: <?=$a['id']?><br />
             班別與學號: <?=$a['cls']?> (<?=$a['number']?>)<br />
             姓名: <?=$a['ename']?> <?=$a['cname']?><br />
             組別: <?=$s?><?=$g?>
@@ -99,29 +98,65 @@
         } ?>
 <?php
     } else { ?>
-<script>
-    if (recaptchaAvailable) {
-        grecaptcha.render(recaptchacontainer, { "sitekey": "6LcbNxMTAAAAAJqw8rngqBFCofxVjUNdfzay7Rxj", callback: tryCaptcha, "expired-callback": captchaExp, type: "audio" });
-    }
-</script>
 <div id="loginForm">
     <p style="text-align: center; font-size: 16pt;">登入</p>
     <div class="form-group">
-        <div class="input-field">
-            <input id="u" name="u" type="text" />
-            <label for="u">登入名稱</label>
+        <div class="row">
+            <div class="input-field col s6">
+                <select name="u" id="u">
+                    <option>1A</option>
+                    <option>1B</option>
+                    <option>1C</option>
+                    <option>1D</option>
+                    <option>2A</option>
+                    <option>2B</option>
+                    <option>2C</option>
+                    <option>2D</option>
+                    <option>3A</option>
+                    <option>3B</option>
+                    <option>3C</option>
+                    <option>3D</option>
+                    <option>4A</option>
+                    <option>4B</option>
+                    <option>4C</option>
+                    <option>4D</option>
+                    <option>5A</option>
+                    <option>5B</option>
+                    <option>5C</option>
+                    <option>5D</option>
+                </select>
+                <label for="u">班別</label>
+            </div>
+            <div class="input-field col s6">
+                <input id="n" name="n" type="number" />
+                <label for="n">學號</label>
+            </div>
         </div>
-        <div class="input-field">
-            <input id="p" name="p" type="password">
-            <label for="p">密碼</label>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="p" name="p" type="password">
+                <label for="p">密碼</label>
+            </div>
         </div>
-        <span class="tooltipped" style="text-decoration: dashed; cursor: help;" data-position="bottom" data-delay="50" data-tooltip="請執行人機驗證以阻止自動程式進入系統。如有需要，請回答驗證問題。">人機驗證（由 Google 提供）：</span>
-        <div id="recaptchacontainer"></div>
+        <div class="row">
+            <div class="col s12">
+                <span class="tooltipped" style="text-decoration: dashed; cursor: help;" data-position="bottom" data-delay="50" data-tooltip="請執行人機驗證以阻止自動程式進入系統。如有需要，請回答驗證問題。">人機驗證（由 Google 提供）：</span>
+                <div id="recaptchacontainer"></div>            
+            </div>
+        </div>
         <br />
-        <a class="waves-effect waves-light btn" id="confirm">確定</a>
+        <div class="row">
+            <a class="waves-effect waves-light btn" id="confirm">確定</a>
+        </div>
         <p>使用前請先閱讀使用說明。(右上方 <i class="material-icons" style="vertical-align: middle">more_vert</i> &gt; 說明)</p>
     </div>
 </div>
+<script>
+    if (recaptchaAvailable) {
+        grecaptcha.render(recaptchacontainer, { "size": "normal", "sitekey": "6LcbNxMTAAAAAJqw8rngqBFCofxVjUNdfzay7Rxj", callback: tryCaptcha, "expired-callback": captchaExp, type: "audio" });
+    }
+    $("#u").material_select();
+</script>
     <?php
     }
     ?>

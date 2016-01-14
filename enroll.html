@@ -1,13 +1,17 @@
 <?php
 session_start();
 if (isset($_SESSION['username'])) {
-    $dn = date_create("now");
-    $ds = date_create("2016-01-09 16:20:00");
-    $dl = date_create("2016-01-11 14:00:00");
-    $expired = ($dn > $dl);
-    $started = ($dn > $ds);
+    
     $mysqli = mysqli_connect('localhost', 'guest', '', 'swimminggala');
     mysqli_query($mysqli,"SET NAMES 'utf8'");
+    if ($res = mysqli_query($mysqli,"select * from config")) {
+        $a = mysqli_fetch_assoc($res);
+        $dn = date_create("now");
+        $ds = date_create($a["enrollstart"]);
+        $dl = date_create($a["enrollend"]);
+        $expired = ($dn > $dl);
+        $started = ($dn > $ds);
+    }
     if ($res = mysqli_query($mysqli,"select * from userinfo where id = '".$_SESSION['username']."' ")) {
         $a = mysqli_fetch_assoc($res);
         if ($a["grade"] == "N") {

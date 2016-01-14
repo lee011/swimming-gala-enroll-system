@@ -385,12 +385,15 @@ $(function () {
         $("#refreshState").fadeIn(200);
         $("#confirm").addClass("disabled");
         $("#u").prop("disabled", true);
+        $("#u").material_select();
         $("#p").prop("disabled", true);
+        $("#n").prop("disabled", true);
         $.ajax({
             url: "handleLogin.html",
             data: {
                 u: $("#u").val(),
                 p: $("#p").val(),
+                n: $("#n").val(),
                 c: captchaValue
             },
             dataType: "json",
@@ -402,7 +405,9 @@ $(function () {
             } else {
                 $("#confirm").removeClass("disabled");
                 $("#u").prop("disabled", false);
+                $("#u").material_select();
                 $("#p").prop("disabled", false);
+                $("#n").prop("disabled", false);
                 if (d.success == 1) {
                     usertype = d.type;
                     Materialize.toast('登入成功。正在為您載入主頁面...', 2000);

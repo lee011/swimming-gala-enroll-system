@@ -4,7 +4,7 @@
         if ($_POST['u'] != "" && $_POST['p'] != "" && $_POST['c'] != "") {
             $mysqli = mysqli_connect('localhost', 'guest', '', 'swimminggala');
             mysqli_query($mysqli,"SET NAMES 'utf8'");
-            if ($res = mysqli_query($mysqli,"select * from userinfo where id = '" . $_POST['u'] . "' && pwd = password('" . $_POST['p'] . "')")) {
+            if ($res = mysqli_query($mysqli,"select * from userinfo where cls = '" . $_POST['u'] . "' && number = " . $_POST['n'] . " && pwd = password('" . $_POST['p'] . "')")) {
                 if (mysqli_num_rows($res) > 0) {
                     $a = mysqli_fetch_assoc($res);
                     if ($a['type'] != "needsInvestigation") {
