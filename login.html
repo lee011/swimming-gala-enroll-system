@@ -28,18 +28,34 @@
                     break;
             } ?>
 <script>usertype = "<?=$a['type']?>";</script>
+<div class="card red" id="notsecured">
+    <div class="card-content white-text">
+        <span class="card-title">正在使用非加密連線</span>
+        <p>
+            您正在使用非加密連線。使用加密連線可確保您和伺服器之間的通訊不受任何攻擊、竊聽或干擾。為了保障您與伺服器之間資訊傳送的安全性，我們強烈建議您使用加密連線。<br />
+            注意：加密連線並不支援 Windows XP 或更舊（Firefox 除外）及 Android 2.3.6 以下系統。如您是 Windows XP 使用者但仍然想使用加密連線，請按下方連結下載 SSL 憑證並安裝在 [信任的根憑證授權]。具體安裝步驟請參閱下載的壓縮檔的 readme.html。如有疑問，請洽詢系統開發人員。
+        </p>
+    </div>
+    <div class="card-action">
+        <a class="waves-effect waves-light red-text text-lighten-5" href="https://lee011.kmdns.net/sg/">立即轉用加密連線</a>
+        <a class="waves-effect waves-light red-text text-lighten-5" href="/sslcertificates.zip">下載所需憑證</a>
+        <a class="waves-effect waves-light red-text text-lighten-5" onclick="$('#notsecured').slideUp(200)">隱藏</a>
+    </div>
+</div>
+<!--
 <div class="card red" id="announce">
     <div class="card-content white-text">
-        <span class="card-title">暫停使用公告</span>
+        <span class="card-title">取消系統暫停使用安排公告</span>
         <p>
-            由於電力裝置檢查關係，本系統將於 2016年01月26日, 06:00:00 至 2016年01月26日, 19:00:00 期間 (大約時間) 暫停使用。為您造成不便，我們在此致歉。<br />
-            (公告號 160109-C001)
+            由於原定於 2016年01月26日 的電力裝置檢查已取消，系統原定於 2016年01月26日, 06:00:00 至 2016年01月26日, 19:00:00 期間 (大約時間) 暫停使用的安排已取消。為您造成不便，我們在此致歉。<br />
+            (公告號 160125-C002，下架日期：2016年01月28日)
         </p>
     </div>
     <div class="card-action">
         <a class="waves-effect waves-light red-text text-lighten-5" onclick="$('#announce').slideUp(200)">隱藏</a>
     </div>
 </div>
+-->
 <div class="card blue-grey">
     <div class="card-content white-text">
         <span class="card-title">您的資訊</span>
@@ -99,7 +115,10 @@
 <?php
     } else { ?>
 <div id="loginForm">
-    <p style="text-align: center; font-size: 16pt;">登入</p>
+    <p style="text-align: center; font-size: 16pt; margin: 10px 0;">登入</p>
+    <div class="red white-text z-depth-1" style="text-align: center; padding: 8px; font-size: 14px;">
+        <a class="white-text" href="https://lee011.kmdns.net/sg/">為了保障資訊傳送安全性，建議您使用加密連線</a>
+    </div>
     <div class="form-group">
         <div class="row">
             <div class="input-field col s6">

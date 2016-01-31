@@ -51,6 +51,10 @@ body {
     z-index: 1000 !important;
 }
 
+#modal5 {
+    z-index: 1000 !important;
+}
+
 .lean-overlay {
     z-index: 999 !important;
 }

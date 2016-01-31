@@ -3,12 +3,12 @@
 var usertype;
 var recaptchaAvailable = false;
 location.hash = "";
+var a = new Audio("err.wav");
+var b = new Audio("notice.wav");
+var c = new Audio("warn.wav");
+var i = new Audio("in.wav");
+var o = new Audio("out.wav");
 $(function () {
-    var a = new Audio("err.wav");
-    var b = new Audio("notice.wav");
-    var c = new Audio("warn.wav");
-    var i = new Audio("in.wav");
-    var o = new Audio("out.wav");
     $("#refreshState").show();
     $.ajax({
         url: "login.html",
@@ -302,7 +302,7 @@ $(function () {
         }
     });
 
-    $(document).on("click", "#updateentry", function () {
+    $(document).on("click", "#updateentry:not(.disabled)", function () {
         if (checkUniqueEnroll()) {
             $("#refreshState").fadeIn(200);
             $.ajax({
@@ -335,7 +335,10 @@ $(function () {
                 a.play();
             });
         } else {
-            Materialize.toast("選取項目重複。請檢查輸入並重試。", 2000);
+            $("#modal5").openModal({
+                in_duration: 200,
+                out_duration: 100
+            });
             c.currentTime = 0;
             c.play();
         }
@@ -381,7 +384,7 @@ $(function () {
         }
     });
 
-    $(document).on("click", "#confirm", function () {
+    $(document).on("click", "#confirm:not(.disabled)", function () {
         $("#refreshState").fadeIn(200);
         $("#confirm").addClass("disabled");
         $("#u").prop("disabled", true);
@@ -816,6 +819,7 @@ function loadEventsPage() {
                 a.currentTime = 0;
                 a.play();
                 Materialize.toast("登入逾時。請重新登入。", 2000);
+                location.replace("#");
             }
             return false;
         });
@@ -846,6 +850,7 @@ function loadEntriesPage() {
                 a.currentTime = 0;
                 a.play();
                 Materialize.toast("登入逾時。請重新登入。", 2000);
+                location.replace("#");
             }
             return false;
         });
@@ -874,6 +879,7 @@ function loadStatPage() {
                 a.currentTime = 0;
                 a.play();
                 Materialize.toast("登入逾時。請重新登入。", 2000);
+                location.replace("#");
             }
             return false;
         });
@@ -906,6 +912,7 @@ function loadEnrollPage() {
                 a.currentTime = 0;
                 a.play();
                 Materialize.toast("登入逾時。請重新登入。", 2000);
+                location.replace("#");
             }
             return false;
         });
