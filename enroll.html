@@ -159,12 +159,12 @@ if (isset($_SESSION['username'])) {
     <script>
         olocked = <?=$n['lockStatus'] == "unlocked"?"false":"true"?>;
     </script>
-    <p>您的報名資訊於 <?=date_format($d, 'Y年m月d日, H:i:s')?> 最後更新。</p>
     <?php if ($n['lockStatus'] != "unlocked") { ?>
     <div class="card-panel red white-text">
         報名項目已由<?=$n['lockStatus'] == "lockedByUser"?"您鎖定。請按下方 [鎖定項目選擇] 開關解除鎖定。":"管理員鎖定。請聯絡管理員解除鎖定。"?>
     </div>
     <?php } ?>
+    <p>您的報名資訊於 <?=date_format($d, 'Y年m月d日, H:i:s')?> 最後更新。</p>
     <div class="input-field">
         <select name="firstiev" id="firstiev" class="matsel" <?php if ($n['lockStatus'] != "unlocked") { echo "disabled"; } ?>>
             <option value="">不選取</option>
