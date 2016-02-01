@@ -156,9 +156,17 @@ if (isset($_SESSION['username'])) {
             } else if ($started) {
 ?>
 <div id="enroll-select" style="padding-top: 48px;">
+    <script>
+        olocked = <?=$n['lockStatus'] == "unlocked"?"false":"true"?>;
+    </script>
     <p>您的報名資訊於 <?=date_format($d, 'Y年m月d日, H:i:s')?> 最後更新。</p>
+    <?php if ($n['lockStatus'] != "unlocked") { ?>
+    <div class="card-panel red white-text">
+        報名項目已由<?=$n['lockStatus'] == "lockedByUser"?"您鎖定。請按下方 [鎖定項目選擇] 開關解除鎖定。":"管理員鎖定。請聯絡管理員解除鎖定。"?>
+    </div>
+    <?php } ?>
     <div class="input-field">
-        <select name="firstiev" id="firstiev" class="matsel">
+        <select name="firstiev" id="firstiev" class="matsel" <?php if ($n['lockStatus'] != "unlocked") { echo "disabled"; } ?>>
             <option value="">不選取</option>
 <?php
                 foreach ($e as $ie) { 
@@ -172,7 +180,7 @@ if (isset($_SESSION['username'])) {
         <label for="firstev">個人項目 - 第一</label>
     </div>
     <div class="input-field">
-        <select name="secondiev" id="secondiev" class="matsel" <?php if ($indv[0] == "") echo "disabled"; ?>>
+        <select name="secondiev" id="secondiev" class="matsel" <?php if ($indv[0] == "" || $n['lockStatus'] != "unlocked") echo "disabled"; ?>>
             <option value="">不選取</option>
 <?php
                 foreach ($e as $ie) { 
@@ -186,7 +194,7 @@ if (isset($_SESSION['username'])) {
         <label for="secondiev">個人項目 - 第二</label>
     </div>
     <div class="input-field">
-        <select name="thirdiev" id="thirdiev" class="matsel" <?php if ($indv[0] == "" || $indv[1] == "") echo "disabled"; ?>>
+        <select name="thirdiev" id="thirdiev" class="matsel" <?php if ($indv[0] == "" || $indv[1] == "" || $n['lockStatus'] != "unlocked") echo "disabled"; ?>>
             <option value="">不選取</option>
 <?php
                 foreach ($e as $ie) { 
@@ -200,7 +208,7 @@ if (isset($_SESSION['username'])) {
         <label for="thirdiev">個人項目 - 第三</label>
     </div>
     <div class="input-field">
-        <select name="rev" id="rev" class="matsel" multiple>
+        <select name="rev" id="rev" class="matsel" multiple <?php if ($n['lockStatus'] != "unlocked") { echo "disabled"; } ?>>
             <option value="" disabled selected>不選取</option>
 <?php
                 foreach ($e as $ie) {
@@ -214,6 +222,14 @@ if (isset($_SESSION['username'])) {
         <label for="thirdiev">接力項目</label>
     </div>
     有關接力項目的填寫，請看 [報名須知]。<br />
+    <div class="switch">
+        <span class="tooltipped" style="text-decoration: dashed; cursor: help;" data-position="bottom" data-delay="50" data-tooltip="鎖定項目選擇可防止其他人擅自更改報名項目。">鎖定項目選擇</span>
+        <label>
+            <input type="checkbox" id="lockentry" <?php if ($n['lockStatus'] != "unlocked") { echo "checked"; } ?> <?php if ($n['lockStatus'] == "lockedByAdmin") { echo "disabled"; } ?>>
+            <span class="lever"></span>
+        </label>
+    </div>
+    <input type="hidden" id="lockpwd" /><br />
     <a class="waves-effect waves-light btn" id="updateentry">更新</a>
 </div>
 <?php

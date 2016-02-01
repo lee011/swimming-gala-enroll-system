@@ -127,5 +127,28 @@
             <a class="modal-action modal-close waves-effect btn-flat">確定</a>
         </div>
     </div>
+    <div id="modal6" class="modal bottom-sheet" data-mode="">
+        <div class="modal-content">
+            <h4>鎖定密碼</h4>
+            <p>請輸入 6 個字或以上的鎖定密碼。</p>
+            <div class="input-field">
+                <input id="lockpwdinp" name="ecname" type="password" />
+                <label for="lockpwdinp" class="active">鎖定密碼</label>
+            </div>
+            <div id="errortext" class="red-text"></div>
+        </div>
+        <div class="modal-footer">
+            <div class="left" id="validatinglockpwd" style="padding: 13px; display: none">
+                <div class="loader" style="width: 22px;">
+                    <svg class="circular" viewBox="25 25 50 50">
+                        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="6" stroke-miterlimit="10" />
+                    </svg>
+                </div>
+                正在驗證...
+            </div>
+            <a class="modal-action modal-close waves-effect btn-flat" onclick="$('#lockentry').prop('checked', olocked)">取消</a>
+            <a class="modal-action waves-effect btn-flat" onclick="checkLockPwd()">確定</a>
+        </div>
+    </div>
 </body>
 </html>

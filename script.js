@@ -8,6 +8,7 @@ var b = new Audio("notice.wav");
 var c = new Audio("warn.wav");
 var i = new Audio("in.wav");
 var o = new Audio("out.wav");
+var olocked = false;
 $(function () {
     $("#refreshState").show();
     $.ajax({
@@ -304,6 +305,7 @@ $(function () {
 
     $(document).on("click", "#updateentry:not(.disabled)", function () {
         if (checkUniqueEnroll()) {
+            $("#updateentry").addClass("disabled");
             $("#refreshState").fadeIn(200);
             $.ajax({
                 url: "handleEnroll.html",
@@ -312,11 +314,14 @@ $(function () {
                     secondiev: $("#secondiev").val(),
                     thirdiev: $("#thirdiev").val(),
                     rev: $("#rev").val().join(),
+                    locked: $("#lockentry").prop("checked") ? "1" : '0',
+                    lockpwd: $("#lockpwd").val()
                 },
                 dataType: "json",
                 method: "post",
                 cache: false
             }).done(function (d) {
+                $("#updateentry").removeClass("disabled");
                 if (d.success == 1) {
                     Materialize.toast('已更新項目。', 2000);
                     loadEnrollPage();
@@ -329,6 +334,7 @@ $(function () {
                     a.play();
                 }
             }).fail(function (e, f, g) {
+                $("#updateentry").removeClass("disabled");
                 $("#refreshState").fadeOut(200);
                 Materialize.toast(e.status == 404 ? "網l絡錯誤。請檢查您的網路連線，然後再試一次。" : '發生不明的錯誤。請稍候再試: ' + g, 2000);
                 a.currentTime = 0;
@@ -341,6 +347,34 @@ $(function () {
             });
             c.currentTime = 0;
             c.play();
+        }
+    });
+
+    $(document).on("change", "#lockentry", function () {
+        if (olocked) {
+            if ($("#lockentry").prop("checked") == false) {
+                $('#lockpwdinp').val('');
+                $("#errortext").text("");
+                $("#modal6").attr("data-mode", "validate");
+                $("#modal6").openModal({
+                    dismissible: false,
+                    in_duration: 200,
+                    out_duration: 100
+                });
+            }
+        } else {
+            if ($("#lockentry").prop("checked") == true) {
+                $('#lockpwdinp').val('');
+                $("#errortext").text("");
+                $("#modal6").attr("data-mode", "create");
+                $("#modal6").openModal({
+                    dismissible: false,
+                    in_duration: 200,
+                    out_duration: 100
+                });
+            } else {
+                $('#lockpwd').val("");
+            }
         }
     });
 
@@ -963,4 +997,37 @@ function captchaExp(value) {
     b.play();
     Materialize.toast("人機驗證已過期，請重新勾選 [我不是自動程式] 選框。", 2000);
     console.log("captcha expired");
+}
+
+function checkLockPwd() {
+    if (olocked) {
+        $("#validatinglockpwd").show();
+        $.ajax({
+            url: "checklockpwd.html",
+            data: {
+                pwd: $('#lockpwdinp').val()
+            },
+            dataType: "json",
+            method: "post",
+            cache: false
+        }).done(function (d) {
+            $("#validatinglockpwd").hide();
+            if (d.success == 1) {
+                $("#modal6").closeModal();
+                $("#updateentry").click();
+            } else {
+                $("#errortext").text("密碼錯誤。");
+            }
+        });
+    } else {
+        if ($('#lockpwdinp').val() == "") {
+            $("#errortext").text("鎖定密碼不可為空白。");
+        } else if ($('#lockpwdinp').val().length < 6) {
+            $("#errortext").text("鎖定密碼的長度必須至少為 6。");
+        } else {
+            $('#lockpwd').val($('#lockpwdinp').val());
+            $("#modal6").closeModal();
+            $("#updateentry").click();
+        }
+    }
 }

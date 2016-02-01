@@ -1,4 +1,4 @@
-﻿<?php
+<?php
     session_start();
     if (isset($_SESSION['username'])) {
         $mysqli = mysqli_connect('localhost', 'guest', '', 'swimminggala');
@@ -12,8 +12,13 @@
         $arev = explode(",", $_POST["rev"]);
         $arev = array_filter($arev);
         $count += count($arev);
-        if ($res = mysqli_query($mysqli,"update entries set evcount = " . $count . ", indveids = '" . $iev . "', releids = '" . $_POST["rev"] . "' where sid = '" . $_SESSION['username'] . "'")) {
-            $result = array('success' => 1, "q" => "update entries set evcount = " . $count . ", indveids = '" . $iev . "', releids = '" . $_POST["rev"] . "' where sid = '" . $_SESSION['username'] . "'");
+        if ($_POST["locked"] == "1") {
+            $lockStatus = "lockedByUser";
+        } else {
+            $lockStatus = "unlocked";
+        }
+        if ($res = mysqli_query($mysqli,"update entries set evcount = " . $count . ", indveids = '" . $iev . "', releids = '" . $_POST["rev"] . "', lockStatus = '" . $lockStatus . "', lockpwd = password('" . $_POST["lockpwd"] . "') where sid = '" . $_SESSION['username'] . "'")) {
+            $result = array('success' => 1, "q" => "update entries set evcount = " . $count . ", indveids = '" . $iev . "', releids = '" . $_POST["rev"] . "', lockStatus = '" . $lockStatus . "', lockpwd = password('" . $_POST["lockpwd"] . "') where sid = '" . $_SESSION['username'] . "'");
         } else {
             $result = array('success' => 0, 'error' => array('message' => mysqli_error($mysqli), 'code' => mysqli_errno($mysqli)));
         }

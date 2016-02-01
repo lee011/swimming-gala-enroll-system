@@ -19,7 +19,7 @@
         } ?>
 <div id="chart" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0;"></div>
 <script>
-    var c = AmCharts.makeChart("chart",{
+    var ch = AmCharts.makeChart("chart",{
         "type": "serial",
         "categoryField": "class",
         "mouseWheelScrollEnabled": true,
@@ -84,7 +84,7 @@
         ],
         "dataProvider": <?=json_encode($arr)?>
     });
-    c.language = "zh";
+    ch.language = "zh";
 </script>
 <?php
     } else {

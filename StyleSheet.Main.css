@@ -39,19 +39,7 @@ body {
     z-index: 1001 !important;
 }
 
-#modal2 {
-    z-index: 1000 !important;
-}
-
-#modal3 {
-    z-index: 1000 !important;
-}
-
-#modal4 {
-    z-index: 1000 !important;
-}
-
-#modal5 {
+#modal2, #modal3, #modal4, #modal5, #modal6 {
     z-index: 1000 !important;
 }
 
