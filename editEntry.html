@@ -1,4 +1,4 @@
-﻿<?php
+<?php
     session_start();
     if (isset($_SESSION['username'])) {
         if ($_SESSION['usertype'] == 'admin' || $_SESSION['usertype'] == 'helper') {
@@ -115,6 +115,13 @@
 ?>
         </select>
         <label for="thirdiev">接力項目</label>
+    </div>
+    <div class="switch">
+        <span class="tooltipped" style="text-decoration: dashed; cursor: help;" data-position="bottom" data-delay="50" data-tooltip="鎖定項目選擇可防止其他人擅自更改報名項目。">鎖定項目選擇</span>
+        <label>
+            <input type="checkbox" id="alockentry" <?php if ($n['lockStatus'] == "lockedByAdmin") { echo "checked"; } ?>>
+            <span class="lever"></span>
+        </label>
     </div>
 </div>
 <?php

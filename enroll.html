@@ -230,7 +230,7 @@ if (isset($_SESSION['username'])) {
         </label>
     </div>
     <input type="hidden" id="lockpwd" /><br />
-    <a class="waves-effect waves-light btn" id="updateentry">更新</a>
+    <a class="waves-effect waves-light btn <?php if ($n['lockStatus'] == "lockedByAdmin") { echo "disabled"; } ?>" id="updateentry">更新</a>
 </div>
 <?php
             } else {

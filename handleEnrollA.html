@@ -1,4 +1,4 @@
-﻿<?php
+<?php
     session_start();
     if (isset($_SESSION['username'])) {
         if ($_SESSION['usertype'] == 'admin' || $_SESSION['usertype'] == 'helper') {
@@ -13,8 +13,13 @@
             $arev = explode(",", $_POST["rev"]);
             $arev = array_filter($arev);
             $count += count($arev);
-            if ($res = mysqli_query($mysqli,"update entries set evcount = " . $count . ", indveids = '" . $iev . "', releids = '" . $_POST["rev"] . "' where sid = '" . $_POST['id'] . "'")) {
-                $result = array('success' => 1, "q" => "update entries set evcount = " . $count . ", indveids = '" . $iev . "', releids = '" . $_POST["rev"] . "' where sid = '" . $_POST['id'] . "'");
+            if ($_POST["locked"] == "1") {
+                $lockStatus = "lockedByAdmin";
+            } else {
+                $lockStatus = "unlocked";
+            }
+            if ($res = mysqli_query($mysqli,"update entries set evcount = " . $count . ", indveids = '" . $iev . "', releids = '" . $_POST["rev"] . "', lockStatus = '" . $lockStatus . "', lockpwd = '' where sid = '" . $_POST['id'] . "'")) {
+                $result = array('success' => 1, "q" => "update entries set evcount = " . $count . ", indveids = '" . $iev . "', releids = '" . $_POST["rev"] . "', lockStatus = '" . $lockStatus . "', lockpwd = '' where sid = '" . $_POST['id'] . "'");
             } else {
                 $result = array('success' => 0, 'error' => array('message' => mysqli_error($mysqli), 'code' => mysqli_errno($mysqli)));
             }

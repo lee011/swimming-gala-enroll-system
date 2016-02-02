@@ -389,6 +389,7 @@ $(function () {
                     thirdiev: $("#athirdiev").val(),
                     rev: $("#rev").val().join(),
                     id: $("#modal3").attr("data-id"),
+                    locked: $("#alockentry").prop("checked") ? "1" : '0'
                 },
                 dataType: "json",
                 method: "post",
@@ -1016,13 +1017,19 @@ function checkLockPwd() {
                 $("#modal6").closeModal();
                 $("#updateentry").click();
             } else {
+                c.currentTime = 0;
+                c.play();
                 $("#errortext").text("密碼錯誤。");
             }
         });
     } else {
         if ($('#lockpwdinp').val() == "") {
+            c.currentTime = 0;
+            c.play();
             $("#errortext").text("鎖定密碼不可為空白。");
         } else if ($('#lockpwdinp').val().length < 6) {
+            c.currentTime = 0;
+            c.play();
             $("#errortext").text("鎖定密碼的長度必須至少為 6。");
         } else {
             $('#lockpwd').val($('#lockpwdinp').val());
