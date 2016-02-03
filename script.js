@@ -9,7 +9,27 @@ var c = new Audio("warn.wav");
 var i = new Audio("in.wav");
 var o = new Audio("out.wav");
 var olocked = false;
+var idleTime = 0;
+var idleWarningShown = false;
+var loggedin = false;
 $(function () {
+    var idleInterval = setInterval(timerIncrement, 1000);
+
+    //Zero the idle timer on mouse movement.
+    $(this).mousemove(function (e) {
+        idleTime = 0;
+        if (idleWarningShown) {
+            $("#modal7").closeModal();
+            idleWarningShown = false;
+        }
+    });
+    $(this).keypress(function (e) {
+        idleTime = 0;
+        if (idleWarningShown) {
+            $("#modal7").closeModal();
+            idleWarningShown = false;
+        }
+    });
     $("#refreshState").show();
     $.ajax({
         url: "login.html",
@@ -1035,6 +1055,45 @@ function checkLockPwd() {
             $('#lockpwd').val($('#lockpwdinp').val());
             $("#modal6").closeModal();
             $("#updateentry").click();
+        }
+    }
+}
+
+function timerIncrement() {
+    if (loggedin) {
+        idleTime++;
+        if (idleTime > 599) {
+            $("#modal7").closeModal();
+            idleWarningShown = false;
+            $("#refreshState").fadeIn(200);
+            $.ajax({
+                url: "logout.html",
+                cache: false
+            }).done(function (d) {
+                o.play();
+                usertype = "";
+                captchaValue = "";
+                Materialize.toast('您已經登出。', 2000);
+                loadMainPage();
+            }).fail(function (e, f, g) {
+                $("#refreshState").fadeOut(200);
+                Materialize.toast(e.status == 404 ? "網l絡錯誤。請檢查您的網路連線，然後再試一次。" : '發生不明的錯誤。請稍候再試: ' + g, 2000);
+                a.currentTime = 0;
+                a.play();
+            })
+            $("#modal8").openModal({
+                in_duration: 200,
+                out_duration: 100
+            });
+        } else if (idleTime > 479) {
+            if (!idleWarningShown) {
+                $("#modal7").openModal({
+                    in_duration: 200,
+                    out_duration: 100
+                });
+                idleWarningShown = true;
+            }
+            $("#idlecount").text(600 - idleTime);
         }
     }
 }

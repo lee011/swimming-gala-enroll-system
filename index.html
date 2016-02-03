@@ -147,8 +147,24 @@
                 </div>
                 正在驗證...
             </div>
-            <a class="modal-action modal-close waves-effect btn-flat" onclick="$('#lockentry').prop('checked', olocked)">取消</a>
             <a class="modal-action waves-effect btn-flat" onclick="checkLockPwd()">確定</a>
+            <a class="modal-action modal-close waves-effect btn-flat" onclick="$('#lockentry').prop('checked', olocked)">取消</a>
+        </div>
+    </div>
+    <div id="modal7" class="modal bottom-sheet">
+        <div class="modal-content">
+            <h4>閒置通知</h4>
+            <p>您已閒置多時。系統將於 <span id="idlecount"></span> 秒後自動登出。</p>
+            <p>在此視窗移動滑鼠即可重設閒置計時器及關閉此訊息。</p>
+        </div>
+    </div>
+    <div id="modal8" class="modal bottom-sheet">
+        <div class="modal-content">
+            <h4>閒置通知</h4>
+            <p>您已閒置多時。系統已自動登出。請重新登入系統。</p>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect btn-flat">確定</a>
         </div>
     </div>
 </body>

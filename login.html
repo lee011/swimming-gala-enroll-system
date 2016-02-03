@@ -26,8 +26,12 @@
                 case "N":
                     $g = "未指定組別";
                     break;
-            } ?>
-<script>usertype = "<?=$a['type']?>";</script>
+            }
+?>
+<script>
+    usertype = "<?=$a['type']?>";
+    loggedin = true;
+</script>
 <div class="card red" id="notsecured">
     <div class="card-content white-text">
         <span class="card-title">正在使用非加密連線</span>
@@ -99,8 +103,10 @@
         <a class="waves-effect waves-light teal-text text-lighten-5" href="#entries">進入</a>
     </div>
 </div>
-<?php }
-            if ($a['type'] == "admin") { ?>
+<?php
+ }
+            if ($a['type'] == "admin") {
+?>
 <div class="card green">
     <div class="card-content white-text">
         <span class="card-title">管理項目資料</span>
@@ -110,10 +116,13 @@
         <a class="waves-effect waves-light green-text text-lighten-5" href="#events">進入</a>
     </div>
 </div>
-<?php        }
-        } ?>
 <?php
-    } else { ?>
+        }
+        }
+?>
+<?php
+    } else {
+?>
 <div id="loginForm">
     <p style="text-align: center; font-size: 16pt; margin: 10px 0;">登入</p>
     <div class="red white-text z-depth-1" style="text-align: center; padding: 8px; font-size: 14px;">
@@ -161,7 +170,7 @@
         <div class="row">
             <div class="col s12">
                 <span class="tooltipped" style="text-decoration: dashed; cursor: help;" data-position="bottom" data-delay="50" data-tooltip="請執行人機驗證以阻止自動程式進入系統。如有需要，請回答驗證問題。">人機驗證（由 Google 提供）：</span>
-                <div id="recaptchacontainer"></div>            
+                <div id="recaptchacontainer"></div>
             </div>
         </div>
         <br />
@@ -172,11 +181,12 @@
     </div>
 </div>
 <script>
+    loggedin = false;
     if (recaptchaAvailable) {
         grecaptcha.render(recaptchacontainer, { "size": "normal", "sitekey": "6LcbNxMTAAAAAJqw8rngqBFCofxVjUNdfzay7Rxj", callback: tryCaptcha, "expired-callback": captchaExp, type: "audio" });
     }
     $("#u").material_select();
 </script>
-    <?php
+<?php
     }
-    ?>
+?>
