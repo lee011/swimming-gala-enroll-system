@@ -1,5 +1,6 @@
 <?php
-    session_start();
+session_start();
+include_once "lang/loadLanguage.html";
     if (isset($_SESSION['username'])) {
         if ($_SESSION['usertype'] == 'admin' || $_SESSION['usertype'] == 'helper') {
             $mysqli = mysqli_connect('localhost', 'guest', '', 'swimminggala');
@@ -8,24 +9,24 @@
                 $a = mysqli_fetch_assoc($res);
                 switch ($a['sex']) {
                     case "F":
-                        $s1 = "女子";
+                        $s1 = $lang['label_girls'];
                         break;
                     case "M":
-                        $s1 = "男子";
+                        $s1 = $lang['label_boys'];
                         break;
                 }
                 switch ($a['grade']) {
                     case "A":
-                        $g = "甲組";
+                        $g = $lang['label_a_grade'];
                         break;
                     case "B":
-                        $g = "乙組";
+                        $g = $lang['label_b_grade'];
                         break;
                     case "C":
-                        $g = "丙組";
+                        $g = $lang['label_c_grade'];
                         break;
                     case "N":
-                        $g = "未指定組別";
+                        $g = $lang['label_no_grade'];
                         break;
                 }
                 if ($a["grade"] == "N") {
@@ -44,7 +45,7 @@
                         $e = mysqli_fetch_all($res1, MYSQLI_BOTH);
                     }
                     if ($res2 = mysqli_query($mysqli,"SELECT entries.* from entries inner join userinfo on entries.sid = userinfo.id WHERE userinfo.cls = '" . $_POST['cls'] . "' and userinfo.number = " . $_POST['num'] . "")) {
-                        if (mysqli_num_rows($res2) == 0) die("沒有相符項目。");
+                        if (mysqli_num_rows($res2) == 0) die($lang['label_not_found']);
                         $n = mysqli_fetch_assoc($res2);
                         $indv = explode(",", $n["indveids"]);
                         $rel = explode(",", $n["releids"]);
@@ -54,15 +55,15 @@
 <script>$("#modal3").attr("data-id", "<?=$a['id']?>");</script>
 <div>
     <p>
-        您正在修改：<br />
-        班別與學號: <?=$a['cls']?> (<?=$a['number']?>)<br />
-        姓名: <?=$a['ename']?> <?=$a['cname']?><br />
-        組別: <?=$s1 . $g?>
+        <?=$lang['label_changing']?><br />
+        <?=$lang['label_cls_no']?><?=$a['cls']?> (<?=$a['number']?>)<br />
+        <?=$lang['label_name']?><?=$a['ename']?> <?=$a['cname']?><br />
+        <?=$lang['label_grade']?><?=$s1 . $g?>
     </p>
-    <p>報名資訊於 <?=date_format($d, 'Y年m月d日, H:i:s')?> 最後更新。</p>
+    <p><?=$lang['label_last_updated_a']?><?=date_format($d, $lang['date_format'])?><?=$lang['label_last_updated_2']?></p>
     <div class="input-field">
         <select name="afirstiev" id="afirstiev" class="matsel">
-            <option value="">不選取</option>
+            <option value=""><?=$lang['label_not_selected']?></option>
 <?php
     foreach ($e as $ie) { 
         if ($ie["type"] == "I") { ?>
@@ -72,11 +73,11 @@
     }
 ?>
         </select>
-        <label for="afirstev">個人項目 - 第一</label>
+        <label for="afirstev"><?=$lang['label_indv_first']?></label>
     </div>
     <div class="input-field">
         <select name="asecondiev" id="asecondiev" class="matsel" <?php if ($indv[0] == "") echo "disabled"; ?>>
-            <option value="">不選取</option>
+            <option value=""><?=$lang['label_not_selected']?></option>
 <?php
     foreach ($e as $ie) { 
         if ($ie["type"] == "I") { ?>
@@ -86,11 +87,11 @@
     }
 ?>
         </select>
-        <label for="asecondiev">個人項目 - 第二</label>
+        <label for="asecondiev"><?=$lang['label_indv_second']?></label>
     </div>
     <div class="input-field">
         <select name="athirdiev" id="athirdiev" class="matsel" <?php if ($indv[0] == "" || $indv[1] == "") echo "disabled"; ?>>
-            <option value="">不選取</option>
+            <option value=""><?=$lang['label_not_selected']?></option>
 <?php
     foreach ($e as $ie) { 
         if ($ie["type"] == "I") { ?>
@@ -100,11 +101,11 @@
     }
 ?>
         </select>
-        <label for="athirdiev">個人項目 - 第三</label>
+        <label for="athirdiev"><?=$lang['label_indv_third']?></label>
     </div>
     <div class="input-field">
         <select name="rev" id="rev" class="matsel" multiple>
-            <option value="" disabled selected>不選取</option>
+            <option value="" disabled selected><?=$lang['label_not_selected']?></option>
 <?php
     foreach ($e as $ie) {
         if ($ie["type"] == "R") { ?>
@@ -114,10 +115,10 @@
     }
 ?>
         </select>
-        <label for="thirdiev">接力項目</label>
+        <label for="thirdiev"><?=$lang['label_rel_all']?></label>
     </div>
     <div class="switch">
-        <span class="tooltipped" style="text-decoration: dashed; cursor: help;" data-position="bottom" data-delay="50" data-tooltip="鎖定項目選擇可防止其他人擅自更改報名項目。">鎖定項目選擇</span>
+        <?=$lang['label_lock_sel']?>
         <label>
             <input type="checkbox" id="alockentry" <?php if ($n['lockStatus'] == "lockedByAdmin") { echo "checked"; } ?>>
             <span class="lever"></span>

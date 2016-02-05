@@ -1,41 +1,46 @@
+<?php session_start(); include_once "lang/loadLanguage.html"; ?>
 <ul class="collapsible" data-collapsible="accordion">
     <li>
-        <div class="collapsible-header waves-effect"><i class="material-icons">help</i>支援的瀏覽器為何？</div>
+        <div class="collapsible-header waves-effect">
+            <i class="material-icons">help</i>
+            <?=$lang['support_browser_title']?>
+        </div>
         <div class="collapsible-body">
             <p>
-                以下的瀏覽器已經測試，並確定可以使用：Google Chrome 35+、Firefox 31+。<br />
-                其他新款瀏覽器應該都可以使用。<b class="red-text">Internet Explorer 可能無法進行人機驗證。我們亦不保證在 Microsoft Edge 上能正常運作。</b>
+                <?=$lang['support_browser_text']?>
             </p>
         </div>
     </li>
     <li>
-        <div class="collapsible-header waves-effect"><i class="material-icons">help</i>如何登入？</div>
+        <div class="collapsible-header waves-effect">
+            <i class="material-icons">help</i>
+            <?=$lang['how_to_login_title']?>
+        </div>
         <div class="collapsible-body">
             <p>
-                登入步驟如下：<br />
-                1. <b>輸入使用者資訊。</b>請選取班別與輸入學號。<br />
-                2. <b>輸入密碼。</b>注意密碼的大小寫必須完全準確。<br />
-                3. <b>進行人機驗證。</b>按下 [我不是自動程式] 方塊以確認並非自動程式正在使用此系統。如有需要，請回答驗證問題。
+                <?=$lang['how_to_login_text']?>
             </p>
         </div>
     </li>
     <li>
-        <div class="collapsible-header waves-effect"><i class="material-icons">help</i>如何報名？</div>
+        <div class="collapsible-header waves-effect">
+            <i class="material-icons">help</i>
+            <?=$lang['how_to_enroll_title']?>
+        </div>
         <div class="collapsible-body">
             <p>
-                在<a onclick="location.replace('#enroll');">報名頁面</a>上選取您欲報名的項目。<br />
-                個人項目方面，您需要由第一個項目順序填寫到第三個項目（此僅為方便系統紀錄，實際項目次序不限）。選取項目不可重複。當取消選取某個項目時，其他項目會依序移前。<br />
-                接力項目方面，請勾選您報名的項目。請務必在填寫此欄位前查閱報名須知。<br />
-                當報名時段過後，您仍然能在報名頁面檢視您已報名的項目，但您不能夠再更改項目。
+                <?=$lang['how_to_enroll_text']?>
             </p>
         </div>
     </li>
     <li>
-        <div class="collapsible-header waves-effect"><i class="material-icons">help</i>發生了錯誤該怎麼辦？</div>
+        <div class="collapsible-header waves-effect">
+            <i class="material-icons">help</i>
+            <?=$lang['have_error_title']?>
+        </div>
         <div class="collapsible-body">
             <p>
-                請聯絡系統開發者以修正錯誤或取得解決方法。提交錯誤報告時，請儘量詳盡描述，並提供錯誤截圖，以便開發人員研究問題。<br />
-                聯絡方式：<a href="https://github.com/lee011/swimming-gala-enroll-system/issues" target="_blank">請到 GitHub 建立新的問題 (Issue)</a></a> 以便開發人員集中處理。
+                <?=$lang['have_error_text']?>
             </p>
         </div>
     </li>

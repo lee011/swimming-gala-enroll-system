@@ -1,0 +1,12 @@
+<?php
+error_reporting(0);
+$langcode = "";
+if (isset($_SESSION['lang'])) {
+    $langcode = $_SESSION['lang'];
+} else if (isset($_COOKIE['lang'])) {
+    $langcode = $_COOKIE['lang'];
+} else {
+    $langcode = "zh";
+}
+include $langcode.".html";
+?>

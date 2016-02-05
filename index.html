@@ -1,16 +1,18 @@
+<?php session_start(); include_once "lang/loadLanguage.html"; ?>
 <!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title>水運會報名系統 (測試版)</title>
+    <title><?=$lang['page_title']?></title>
     <meta name="viewport" content="width=device-width" />
     <link href="StyleSheet.Main.min.css" rel="stylesheet" />
     <script src="importedScript.min.js"></script>
+    <?php include_once "lang/loadLanguageScript.html" ?>
     <script src="/amCharts/amCharts/amcharts.js"></script>
     <script src="/amCharts/amCharts/serial.js"></script>
     <script src="script.min.js"></script>
-    <script src='https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit&hl=zh-HK' async defer></script>
+    <script src='https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit&hl=<?=$lang['recaptcha_lang']?>' async defer></script>
 </head>
 <body class="grey lighten-4">
     <div id="actionBar" class="valign-wrapper">
@@ -18,7 +20,7 @@
             <i class="material-icons" style="font-size: 24px;">arrow_back</i>
         </div>
         <div id="abMainTitle" style="position: absolute; left: 12px; top: 18px; font-size: 18px;">
-            水運會報名系統 (測試版)
+            <?=$lang['page_title']?>
         </div>
         <div id="abSubTitle" style="position: absolute; left: 12px; top: 31px; font-size: 14px; display: none">
 
@@ -39,52 +41,57 @@
     </div>
     <div id="mainContent">
         <noscript>
-            要使用水運會報名系統 (測試版)，您的瀏覽器必須更新為最新版本和啟用 JavaScript。
+            <div class="card-panel red white-text">
+                <?=$lang['js_disabled']?>
+            </div>
         </noscript>
     </div>
     <ul id='dropdown1' class='dropdown-content'>
-        <li><a href="#help">說明</a></li>
-        <li><a href="#about">關於</a></li>
+        <li><a href="#help"><?=$lang['menu_help']?></a></li>
+        <li><a href="#about"><?=$lang['menu_about']?></a></li>
+        <li class="divider"></li>
+        <li><a onclick="location.replace('lang/setLanguage.html?lang=en');">English</a></li>
+        <li><a onclick="location.replace('lang/setLanguage.html?lang=zh');">中文</a></li>
     </ul>
     <div id="modal1" class="modal bottom-sheet" data-id="">
         <div class="modal-content">
-            <h4>確定項目刪除</h4>
-            <p>您確定要刪除項目 <span id="deleid"></span>？<span class="red-text">此動作無法復原。</span></p>
+            <h4><?=$lang['modal1_title']?></h4>
+            <p><?=$lang['modal1_text_1']?><span id="deleid"></span><?=$lang['modal1_text_2']?></p>
         </div>
         <div class="modal-footer">
-            <a class="modal-action modal-close waves-effect waves-red btn-flat yes-btn">是</a>
-            <a class="modal-action modal-close waves-effect btn-flat no-btn">否</a>
+            <a class="modal-action modal-close waves-effect waves-red btn-flat yes-btn"><?=$lang['label_yes']?></a>
+            <a class="modal-action modal-close waves-effect btn-flat no-btn"><?=$lang['label_no']?></a>
         </div>
     </div>
     <div id="modal2" class="modal bottom-sheet full-size modal-fixed-footer" data-id="">
         <div class="modal-content">
-            <h4>編輯項目</h4>
+            <h4><?=$lang['modal2_title']?></h4>
             <div id="eventDetails">
                 <div class="input-field">
-                    <input id="eeid" name="eeid" disabled type="text" length="9" maxlength="9" placeholder="項目編碼" />
-                    <label for="eeid" class="active">項目編碼</label>
+                    <input id="eeid" name="eeid" disabled type="text" length="9" maxlength="9" placeholder="<?=$lang['label_eid']?>" />
+                    <label for="eeid" class="active"><?=$lang['label_eid']?></label>
                 </div>
                 <div class="input-field">
                     <select name="egrade" id="egrade">
-                        <option value="BA">男子甲組</option>
-                        <option value="BB">男子乙組</option>
-                        <option value="BC">男子丙組</option>
-                        <option value="GA">女子甲組</option>
-                        <option value="GB">女子乙組</option>
-                        <option value="GC">女子丙組</option>
+                        <option value="BA"><?=$lang['label_option_boys_a']?></option>
+                        <option value="BB"><?=$lang['label_option_boys_b']?></option>
+                        <option value="BC"><?=$lang['label_option_boys_c']?></option>
+                        <option value="GA"><?=$lang['label_option_girls_a']?></option>
+                        <option value="GB"><?=$lang['label_option_girls_b']?></option>
+                        <option value="GC"><?=$lang['label_option_girls_c']?></option>
                     </select>
-                    <label for="egrade">組別</label>
+                    <label for="egrade"><?=$lang['label_grade_a']?></label>
                 </div>
                 <div class="input-field">
-                    <input id="eename" name="eename" type="text" placeholder="英文名稱" />
-                    <label for="eename" class="active">英文名稱</label>
+                    <input id="eename" name="eename" type="text" placeholder="<?=$lang['label_ename']?>" />
+                    <label for="eename" class="active"><?=$lang['label_ename']?></label>
                 </div>
                 <div class="input-field">
-                    <input id="ecname" name="ecname" type="text" placeholder="中文名稱" />
-                    <label for="ecname" class="active">中文名稱</label>
+                    <input id="ecname" name="ecname" type="text" placeholder="<?=$lang['label_cname']?>" />
+                    <label for="ecname" class="active"><?=$lang['label_cname']?></label>
                 </div>
                 <div class="switch">
-                    接力項目
+                    <?=$lang['label_relay']?>
                     <label>
                         <input type="checkbox" id="erelay" value="R">
                         <span class="lever"></span>
@@ -93,48 +100,47 @@
             </div>
         </div>
         <div class="modal-footer">
-            <a class="modal-action modal-close waves-effect btn-flat" id="editev">確定</a>
-            <a class="modal-action modal-close waves-effect btn-flat">取消</a>
-            <a class="modal-action waves-effect waves-red btn-flat red-text left" id="delev">刪除項目</a>
+            <a class="modal-action modal-close waves-effect btn-flat" id="editev"><?=$lang['label_ok']?></a>
+            <a class="modal-action modal-close waves-effect btn-flat"><?=$lang['label_cancel']?></a>
+            <a class="modal-action waves-effect waves-red btn-flat red-text left" id="delev"><?=$lang['label_delete_ev']?></a>
         </div>
     </div>
     <div id="modal3" class="modal bottom-sheet full-size modal-fixed-footer" data-id="">
         <div class="modal-content">
-            <h4>編輯報名資訊</h4>
+            <h4><?=$lang['modal3_title']?></h4>
             <div id="entryDetails"></div>
         </div>
         <div class="modal-footer">
-            <a class="modal-action modal-close waves-effect btn-flat" id="editent">確定</a>
-            <a class="modal-action modal-close waves-effect btn-flat">取消</a>
+            <a class="modal-action modal-close waves-effect btn-flat" id="editent"><?=$lang['label_ok']?></a>
+            <a class="modal-action modal-close waves-effect btn-flat"><?=$lang['label_cancel']?></a>
         </div>
     </div>
     <div id="modal4" class="modal bottom-sheet modal-fixed-footer">
         <div class="modal-content">
-            <h4>警告</h4>
-            <p>您正在使用 Internet Explorer。Internet Explorer 並不為我們所支援。我們並不保證網站在此瀏覽器上的行為。</p>
-            <p>請改用 <a href="https://www.google.com.hk/chrome/browser/desktop/index.html" target="_blank">Google Chrome</a> 或 <a href="http://mozilla.com.tw/firefox/new/" target="_blank">Firefox</a> 等瀏覽器，以取得更佳瀏覽效果。</p>
+            <h4><?=$lang['modal4_title']?></h4>
+            <?=$lang['modal4_text']?>
         </div>
         <div class="modal-footer">
-            <a class="modal-action modal-close waves-effect btn-flat">確定</a>
+            <a class="modal-action modal-close waves-effect btn-flat"><?=$lang['label_ok']?></a>
         </div>
     </div>
     <div id="modal5" class="modal bottom-sheet">
         <div class="modal-content">
-            <h4>項目選取錯誤</h4>
-            <p>選取項目重複。請檢查輸入並重試。</p>
+            <h4><?=$lang['modal5_title']?></h4>
+            <p><?=$lang['modal5_text']?></p>
         </div>
         <div class="modal-footer">
-            <a class="modal-action modal-close waves-effect btn-flat">確定</a>
+            <a class="modal-action modal-close waves-effect btn-flat"><?=$lang['label_ok']?></a>
         </div>
     </div>
     <div id="modal6" class="modal bottom-sheet" data-mode="">
         <div class="modal-content">
-            <h4>鎖定密碼</h4>
-            <p>請輸入 6 個字或以上的鎖定密碼。</p>
-            <input style="display: none" name="ecnamxe" type="password" />
+            <h4><?=$lang['modal6_title']?></h4>
+            <p><?=$lang['modal6_text']?></p>
+            <input style="display: none" name="ecnamxe" id="ecnamxe" type="password" />
             <div class="input-field">
                 <input id="lockpwdinp" name="ecname" type="password" />
-                <label for="lockpwdinp" class="active">鎖定密碼</label>
+                <label for="lockpwdinp" class="active"><?=$lang['modal6_title']?></label>
             </div>
             <div id="errortext" class="red-text"></div>
         </div>
@@ -145,26 +151,26 @@
                         <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="6" stroke-miterlimit="10" />
                     </svg>
                 </div>
-                正在驗證...
+                <?=$lang['label_validating']?>
             </div>
-            <a class="modal-action waves-effect btn-flat" onclick="checkLockPwd()">確定</a>
-            <a class="modal-action modal-close waves-effect btn-flat" onclick="$('#lockentry').prop('checked', olocked)">取消</a>
+            <a class="modal-action waves-effect btn-flat" onclick="checkLockPwd()"><?=$lang['label_ok']?></a>
+            <a class="modal-action modal-close waves-effect btn-flat" onclick="$('#lockentry').prop('checked', olocked)"><?=$lang['label_cancel']?></a>
         </div>
     </div>
     <div id="modal7" class="modal bottom-sheet">
         <div class="modal-content">
-            <h4>閒置通知</h4>
-            <p>您已閒置多時。系統將於 <span id="idlecount"></span> 秒後自動登出。</p>
-            <p>在此視窗移動滑鼠即可重設閒置計時器及關閉此訊息。</p>
+            <h4><?=$lang['modal7_title']?></h4>
+            <p><?=$lang['modal7_text_1']?><span id="idlecount"></span><?=$lang['modal7_text_2']?></p>
+            <p><?=$lang['modal7_text_3']?></p>
         </div>
     </div>
     <div id="modal8" class="modal bottom-sheet">
         <div class="modal-content">
-            <h4>閒置通知</h4>
-            <p>您已閒置多時。系統已自動登出。請重新登入系統。</p>
+            <h4><?=$lang['modal7_title']?></h4>
+            <p><?=$lang['modal8_text']?></p>
         </div>
         <div class="modal-footer">
-            <a class="modal-action modal-close waves-effect btn-flat">確定</a>
+            <a class="modal-action modal-close waves-effect btn-flat"><?=$lang['label_ok']?></a>
         </div>
     </div>
 </body>

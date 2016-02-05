@@ -1,5 +1,6 @@
-﻿<?php
-    session_start();
+<?php
+session_start();
+include_once "lang/loadLanguage.html";
     if (isset($_SESSION['username'])) {
         if ($_SESSION['usertype'] == 'admin') {
             $mysqli = mysqli_connect('localhost', 'guest', '', 'swimminggala');
@@ -7,50 +8,50 @@
             if ($res = mysqli_query($mysqli,"select * from events order by id asc")) { ?>
 <div>
     <ul class="tabs">
-        <li class="tab waves-effect waves-light"><a class="active" href="#events-allitems">現有項目</a></li>
-        <li class="tab waves-effect waves-light"><a href="#events-additem">新增項目</a></li>
+        <li class="tab waves-effect waves-light"><a class="active" href="#events-allitems"><?=$lang['label_current_items']?></a></li>
+        <li class="tab waves-effect waves-light"><a href="#events-additem"><?=$lang['label_add_item']?></a></li>
     </ul>
 </div>
         <div id="events-additem" style="padding-top: 48px;">
             <div>
                 <div class="input-field">
                     <input id="eid" name="eid" type="text" length="9" maxlength="9" />
-                    <label for="eid">項目編碼</label>
+                    <label for="eid"><?=$lang['label_eid']?></label>
                 </div>
                 <div class="input-field">
                     <select name="grade" id="grade">
-                        <option value="BA">男子甲組</option>
-                        <option value="BB">男子乙組</option>
-                        <option value="BC">男子丙組</option>
-                        <option value="GA">女子甲組</option>
-                        <option value="GB">女子乙組</option>
-                        <option value="GC">女子丙組</option>
+                        <option value="BA"><?=$lang['label_option_boys_a']?></option>
+                        <option value="BB"><?=$lang['label_option_boys_b']?></option>
+                        <option value="BC"><?=$lang['label_option_boys_c']?></option>
+                        <option value="GA"><?=$lang['label_option_girls_a']?></option>
+                        <option value="GB"><?=$lang['label_option_girls_b']?></option>
+                        <option value="GC"><?=$lang['label_option_girls_c']?></option>
                     </select>
-                    <label for="grade">組別</label>
+                    <label for="grade"><?=$lang['label_grade_a']?></label>
                 </div>
                 <div class="input-field">
                     <input id="ename" name="ename" type="text" />
-                    <label for="ename">英文名稱</label>
+                    <label for="ename"><?=$lang['label_ename']?></label>
                 </div>
                 <div class="input-field">
                     <input id="cname" name="cname" type="text" />
-                    <label for="cname">中文名稱</label>
+                    <label for="cname"><?=$lang['label_cname']?></label>
                 </div>
                 <div class="switch">
-                    接力項目
+                    <?=$lang['label_relay']?>
                     <label>
                         <input type="checkbox" id="relay" value="R">
                         <span class="lever"></span>
                     </label>
                 </div><br />
-                <a class="waves-effect waves-light btn" id="addev">加入</a>
+                <a class="waves-effect waves-light btn" id="addev"><?=$lang['label_add']?></a>
 
             </div>
         </div>
         <div id="events-allitems" style="padding-top: 48px;">
 <?php
             if (mysqli_num_rows($res) == 0) { ?>
-            沒有項目。
+            <?=$lang['label_no_item']?>
 <?php
             } else { ?>
             <ul class="collection" id="eventsCollection">
@@ -60,28 +61,29 @@
                     <i class="material-icons circle"><?php if ($a["type"] == "I") echo "person"; else echo "group"; ?></i>
                     <div class="title truncate tooltipped" data-position="bottom" data-delay="50" data-tooltip="<?=$a['ename']?> <?=$a['cname']?>"><?=$a['ename']?> <?=$a['cname']?></div>
                     <span>
-                        項目編碼: <?=$a['id']?><br />
-                        組別: <?php switch ($a['grade']) {
+                        <?=$lang['label_eid_a']?><?=$a['id']?><br />
+                        <?=$lang['label_grade']?>
+                                                         <?php switch ($a['grade']) {
                 case "GA":
-                    echo "女子甲組";
+                    echo $lang['label_option_girls_a'];
                     break;
                 case "GB":
-                    echo "女子乙組";
+                    echo $lang['label_option_girls_b'];
                     break;
                 case "GC":
-                    echo "女子丙組";
+                    echo $lang['label_option_girls_c'];
                     break;
                 case "BA":
-                    echo "男子甲組";
+                    echo $lang['label_option_boys_a'];
                     break;
                 case "BB":
-                    echo "男子乙組";
+                    echo $lang['label_option_boys_b'];
                     break;
                 case "BC":
-                    echo "男子丙組";
+                    echo $lang['label_option_boys_c'];
                     break;
                 case "N":
-                    echo "未指定組別";
+                    echo $lang['label_no_grade'];
                     break;
             } ?><br />
                     </span>

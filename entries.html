@@ -1,12 +1,13 @@
-﻿<?php
-    session_start();
+<?php
+session_start();
+include_once "lang/loadLanguage.html";
     if (isset($_SESSION['username'])) {
         if ($_SESSION['usertype'] == 'admin' || $_SESSION['usertype'] == 'helper') {
             $mysqli = mysqli_connect('localhost', 'guest', '', 'swimminggala');
             mysqli_query($mysqli,"SET NAMES 'utf8'"); ?>
 <div>
-    <a class="waves-effect waves-light btn" href="outputEntries.html">匯出所有資料</a><br />
-    請輸入班別與學號以編輯報名項目：
+    <a class="waves-effect waves-light btn" href="outputEntries.html"><?=$lang['label_export']?></a><br />
+    <?=$lang['label_choose_ppl']?>
     <div class="row">
         <div class="input-field col s6">
             <select name="cls" id="cls">
@@ -31,14 +32,14 @@
                 <option>5C</option>
                 <option>5D</option>
             </select>
-            <label for="cls">班別</label>
+            <label for="cls"><?=$lang['label_class']?></label>
         </div>
         <div class="input-field col s6">
             <input id="num" name="num" type="number" />
-            <label for="num">學號</label>
+            <label for="num"><?=$lang['label_number']?></label>
         </div>
     </div>
-    <a class="waves-effect waves-light btn" id="selent">選取</a>
+    <a class="waves-effect waves-light btn" id="selent"><?=$lang['label_select']?></a>
 </div>
 <?php
         } else {

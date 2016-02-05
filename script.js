@@ -82,7 +82,7 @@ $(function () {
             if (h == "") {
                 $("#menuButton").show();
                 $("#refButton").css("right", 48);
-                setActionBarTitle("水運會報名系統 (測試版)", "");
+                setActionBarTitle(lang.title, "");
                 setBackButtonVisible(false);
                 $("#refreshState").fadeIn(200);
                 lasthash = "";
@@ -90,7 +90,7 @@ $(function () {
             } else if (h == "help") {
                 $("#menuButton").hide();
                 $("#refButton").css("right", 8);
-                setActionBarTitle("水運會報名系統 (測試版)", "說明");
+                setActionBarTitle(lang.title, lang.help_title);
                 setBackButtonVisible(true);
                 $("#refreshState").fadeIn(200);
                 lasthash = "help";
@@ -98,7 +98,7 @@ $(function () {
             } else if (h == "about") {
                 $("#menuButton").hide();
                 $("#refButton").css("right", 8);
-                setActionBarTitle("水運會報名系統 (測試版)", "關於");
+                setActionBarTitle(lang.title, lang.about_title);
                 setBackButtonVisible(true);
                 $("#refreshState").fadeIn(200);
                 lasthash = "about";
@@ -109,50 +109,50 @@ $(function () {
                     $("#refButton").css("right", 48);
                     if (h == "events") {
                         if (usertype == "admin") {
-                            setActionBarTitle("水運會報名系統 (測試版)", "管理項目資料");
+                            setActionBarTitle(lang.title, lang.manage_ev_title);
                             setBackButtonVisible(true);
                             $("#refreshState").fadeIn(200);
                             lasthash = "events";
                             loadEventsPage();
                         } else {
-                            Materialize.toast('您沒有瀏覽此頁面的權限。', 2000);
+                            Materialize.toast(lang.page_no_priv, 2000);
                             history.back();
                             c.currentTime = 0;
                             c.play();
                         }
                     } else if (h == "enroll") {
-                        setActionBarTitle("水運會報名系統 (測試版)", "報名");
+                        setActionBarTitle(lang.title, lang.enroll_title);
                         setBackButtonVisible(true);
                         $("#refreshState").fadeIn(200);
                         lasthash = "enroll";
                         loadEnrollPage();
                     } else if (h == "stat") {
-                        setActionBarTitle("水運會報名系統 (測試版)", "報名統計");
+                        setActionBarTitle(lang.title, lang.stat_title);
                         setBackButtonVisible(true);
                         $("#refreshState").fadeIn(200);
                         lasthash = "enroll";
                         loadStatPage();
                     } else if (h == "entries") {
                         if (usertype == "admin" || usertype == "helper") {
-                            setActionBarTitle("水運會報名系統 (測試版)", "管理報名資料");
+                            setActionBarTitle(lang.title, lang.manage_entry_title);
                             setBackButtonVisible(true);
                             $("#refreshState").fadeIn(200);
                             lasthash = "entries";
                             loadEntriesPage();
                         } else {
-                            Materialize.toast('您沒有瀏覽此頁面的權限。', 2000);
+                            Materialize.toast(lang.page_no_priv, 2000);
                             history.back();
                             c.currentTime = 0;
                             c.play();
                         }
                     } else {
-                        Materialize.toast('找不到相符的功能。', 2000);
+                        Materialize.toast(lang.no_fn_found, 2000);
                         history.back();
                         c.currentTime = 0;
                         c.play();
                     }
                 } else {
-                    Materialize.toast('請登入後再進行有關操作。', 2000);
+                    Materialize.toast(lang.login_required, 2000);
                     history.back();
                     c.currentTime = 0;
                     c.play();
@@ -177,7 +177,7 @@ $(function () {
         if (h == "") {
             $("#menuButton").show();
             $("#refButton").css("right", 48);
-            setActionBarTitle("水運會報名系統 (測試版)", "");
+            setActionBarTitle(lang.title, "");
             setBackButtonVisible(false);
             $("#refreshState").fadeIn(200);
             lasthash = "";
@@ -185,7 +185,7 @@ $(function () {
         } else if (h == "help") {
             $("#menuButton").hide();
             $("#refButton").css("right", 8);
-            setActionBarTitle("水運會報名系統 (測試版)", "說明");
+            setActionBarTitle(lang.title, lang.help_title);
             setBackButtonVisible(true);
             $("#refreshState").fadeIn(200);
             lasthash = "help";
@@ -193,7 +193,7 @@ $(function () {
         } else if (h == "about") {
             $("#menuButton").hide();
             $("#refButton").css("right", 8);
-            setActionBarTitle("水運會報名系統 (測試版)", "關於");
+            setActionBarTitle(lang.title, lang.about_title);
             setBackButtonVisible(true);
             $("#refreshState").fadeIn(200);
             lasthash = "about";
@@ -204,50 +204,50 @@ $(function () {
                 $("#refButton").css("right", 48);
                 if (h == "events") {
                     if (usertype == "admin") {
-                        setActionBarTitle("水運會報名系統 (測試版)", "管理項目資料");
+                        setActionBarTitle(lang.title, lang.manage_ev_title);
                         setBackButtonVisible(true);
                         $("#refreshState").fadeIn(200);
                         lasthash = "events";
                         loadEventsPage();
                     } else {
-                        Materialize.toast('您沒有瀏覽此頁面的權限。', 2000);
+                        Materialize.toast(lang.page_no_priv, 2000);
                         history.back();
                         c.currentTime = 0;
                         c.play();
                     }
                 } else if (h == "enroll") {
-                    setActionBarTitle("水運會報名系統 (測試版)", "報名");
+                    setActionBarTitle(lang.title, lang.enroll_title);
                     setBackButtonVisible(true);
                     $("#refreshState").fadeIn(200);
                     lasthash = "enroll";
                     loadEnrollPage();
                 } else if (h == "stat") {
-                    setActionBarTitle("水運會報名系統 (測試版)", "報名統計");
+                    setActionBarTitle(lang.title, lang.stat_title);
                     setBackButtonVisible(true);
                     $("#refreshState").fadeIn(200);
                     lasthash = "enroll";
                     loadStatPage();
                 } else if (h == "entries") {
                     if (usertype == "admin" || usertype == "helper") {
-                        setActionBarTitle("水運會報名系統 (測試版)", "管理報名資料");
+                        setActionBarTitle(lang.title, lang.manage_entry_title);
                         setBackButtonVisible(true);
                         $("#refreshState").fadeIn(200);
                         lasthash = "entries";
                         loadEntriesPage();
                     } else {
-                        Materialize.toast('您沒有瀏覽此頁面的權限。', 2000);
+                        Materialize.toast(lang.page_no_priv, 2000);
                         history.back();
                         c.currentTime = 0;
                         c.play();
                     }
                 } else {
-                    Materialize.toast('找不到相符的功能。', 2000);
+                    Materialize.toast(lang.no_fn_found, 2000);
                     history.back();
                     c.currentTime = 0;
                     c.play();
                 }
             } else {
-                Materialize.toast('請登入後再進行有關操作。', 2000);
+                Materialize.toast(lang.login_required, 2000);
                 history.back();
                 c.currentTime = 0;
                 c.play();
@@ -276,7 +276,7 @@ $(function () {
         if ($("#eid").val() == "" || $("#ename").val() == "" || $("#cname").val() == "") {
             c.currentTime = 0;
             c.play();
-            Materialize.toast('請填寫所有欄位。', 2000);
+            Materialize.toast(lang.all_fields_required, 2000);
         } else {
             $("#refreshState").fadeIn(200);
             $.ajax({
@@ -293,30 +293,30 @@ $(function () {
                 cache: false
             }).done(function (d) {
                 if (d.success == 1) {
-                    Materialize.toast('已加入項目。', 2000);
+                    Materialize.toast(lang.item_added, 2000);
                     loadEventsPage();
                     o.currentTime = 0;
                     o.play();
                 } else if (d.success == 0) {
                     $("#refreshState").fadeOut(200);
                     if (d.error.code == 1062) {
-                        Materialize.toast('項目重複，請檢查輸入並重試。', 2000);
+                        Materialize.toast(lang.duplicate, 2000);
                         c.currentTime = 0;
                         c.play();
                     } else {
-                        Materialize.toast('發生不明的錯誤。請稍候再試: (' + d.error.code + ')' + d.error.message, 2000);
+                        Materialize.toast(lang.error + '(' + d.error.code + ')' + d.error.message, 2000);
                         c.currentTime = 0;
                         c.play();
                     }
                 } else if (d.success == -2) {
                     $("#refreshState").fadeOut(200);
-                    Materialize.toast('您沒有執行此動作的權限。', 2000);
+                    Materialize.toast(lang.action_no_priv, 2000);
                     a.currentTime = 0;
                     a.play();
                 }
             }).fail(function (e, f, g) {
                 $("#refreshState").fadeOut(200);
-                Materialize.toast(e.status == 404 ? "網l絡錯誤。請檢查您的網路連線，然後再試一次。" : '發生不明的錯誤。請稍候再試: ' + g, 2000);
+                Materialize.toast(e.status == 404 ? lang.network_error : lang.error + g, 2000);
                 c.currentTime = 0;
                 c.play();
             });
@@ -343,20 +343,20 @@ $(function () {
             }).done(function (d) {
                 $("#updateentry").removeClass("disabled");
                 if (d.success == 1) {
-                    Materialize.toast('已更新項目。', 2000);
+                    Materialize.toast(lang.item_updated, 2000);
                     loadEnrollPage();
                     o.currentTime = 0;
                     o.play();
                 } else if (d.success == 0) {
                     $("#refreshState").fadeOut(200);
-                    Materialize.toast('發生不明的錯誤。請稍候再試: (' + d.error.code + ')' + d.error.message, 2000);
+                    Materialize.toast(lang.error + '(' + d.error.code + ')' + d.error.message, 2000);
                     a.currentTime = 0;
                     a.play();
                 }
             }).fail(function (e, f, g) {
                 $("#updateentry").removeClass("disabled");
                 $("#refreshState").fadeOut(200);
-                Materialize.toast(e.status == 404 ? "網l絡錯誤。請檢查您的網路連線，然後再試一次。" : '發生不明的錯誤。請稍候再試: ' + g, 2000);
+                Materialize.toast(e.status == 404 ? lang.network_error : lang.error + g, 2000);
                 a.currentTime = 0;
                 a.play();
             });
@@ -416,24 +416,24 @@ $(function () {
                 cache: false
             }).done(function (d) {
                 if (d.success == 1) {
-                    Materialize.toast('已更新項目。', 2000);
+                    Materialize.toast(lang.item_updated, 2000);
                     $("#refreshState").fadeOut(200);
                     o.currentTime = 0;
                     o.play();
                 } else if (d.success == 0) {
                     $("#refreshState").fadeOut(200);
-                    Materialize.toast('發生不明的錯誤。請稍候再試: (' + d.error.code + ')' + d.error.message, 2000);
+                    Materialize.toast(lang.error + '(' + d.error.code + ')' + d.error.message, 2000);
                     a.currentTime = 0;
                     a.play();
                 }
             }).fail(function (e, f, g) {
                 $("#refreshState").fadeOut(200);
-                Materialize.toast(e.status == 404 ? "網l絡錯誤。請檢查您的網路連線，然後再試一次。" : '發生不明的錯誤。請稍候再試: ' + g, 2000);
+                Materialize.toast(e.status == 404 ? lang.network_error : lang.error + g, 2000);
                 a.currentTime = 0;
                 a.play();
             });
         } else {
-            Materialize.toast("選取項目重複。請檢查輸入並重試。", 2000);
+            Materialize.toast(lang.duplicate_selection, 2000);
             c.currentTime = 0;
             c.play();
         }
@@ -468,32 +468,32 @@ $(function () {
                 $("#n").prop("disabled", false);
                 if (d.success == 1) {
                     usertype = d.type;
-                    Materialize.toast('登入成功。正在為您載入主頁面...', 2000);
+                    Materialize.toast(lang.login_success, 2000);
                     loadMainPage();
                     i.play();
                 } else if (d.success == 0) {
                     $("#refreshState").fadeOut(200);
-                    Materialize.toast('用戶名稱或密碼錯誤。', 2000);
+                    Materialize.toast(lang.login_error_pwd, 2000);
                     c.currentTime = 0;
                     c.play();
                 } else if (d.success == -1) {
                     $("#refreshState").fadeOut(200);
-                    Materialize.toast('發生不明的錯誤。請稍候再試。', 2000);
+                    Materialize.toast(lang.login_error_unknown, 2000);
                     a.currentTime = 0;
                     a.play();
                 } else if (d.success == -2) {
                     $("#refreshState").fadeOut(200);
-                    Materialize.toast('請輸入用戶名稱、輸入密碼及完成人機驗證。', 2000);
+                    Materialize.toast(lang.login_error_missing_info, 2000);
                     b.currentTime = 0;
                     b.play();
                 } else if (d.success == -3) {
                     $("#refreshState").fadeOut(200);
-                    Materialize.toast('您的帳號資料仍未準備好，請稍候再試。', 2000);
+                    Materialize.toast(lang.login_error_not_ready, 2000);
                     c.currentTime = 0;
                     c.play();
                 } else if (d.success == -4) {
                     $("#refreshState").fadeOut(200);
-                    Materialize.toast('人機驗證失敗，請稍後再試。', 2000);
+                    Materialize.toast(lang.login_error_verification, 2000);
                     console.log(d.error);
                     console.log(d.jsontext);
                     c.currentTime = 0;
@@ -506,7 +506,7 @@ $(function () {
             $("#p").prop("disabled", false);
             $("#refreshState").fadeOut(200);
             console.log(e.responseText);
-            Materialize.toast(e.status == 404 ? "網l絡錯誤。請檢查您的網路連線，然後再試一次。" : '發生不明的錯誤。請稍候再試: ' + g, 2000);
+            Materialize.toast(e.status == 404 ? lang.network_error : lang.error + g, 2000);
             a.currentTime = 0;
             a.play();
         })
@@ -521,11 +521,11 @@ $(function () {
             o.play();
             usertype = "";
             captchaValue = "";
-            Materialize.toast('您已經登出。', 2000);
+            Materialize.toast(lang.logout, 2000);
             loadMainPage();
         }).fail(function (e, f, g) {
             $("#refreshState").fadeOut(200);
-            Materialize.toast(e.status == 404 ? "網l絡錯誤。請檢查您的網路連線，然後再試一次。" : '發生不明的錯誤。請稍候再試: ' + g, 2000);
+            Materialize.toast(e.status == 404 ? lang.network_error : lang.error + g, 2000);
             a.currentTime = 0;
             a.play();
         })
@@ -650,7 +650,7 @@ $(function () {
             $("#refreshState").fadeOut(200);
             a.currentTime = 0;
             a.play();
-            Materialize.toast(e.status == 404 ? "網l絡錯誤。請檢查您的網路連線，然後再試一次。" : '發生不明的錯誤。請稍候再試: ' + g, 2000);
+            Materialize.toast(e.status == 404 ? lang.network_error : lang.error + g, 2000);
         });
     });
 
@@ -702,24 +702,24 @@ $(function () {
             if (d.success == 1) {
                 o.currentTime = 0;
                 o.play();
-                Materialize.toast('已刪除項目。', 2000);
+                Materialize.toast(lang.item_deleted, 2000);
                 loadEventsPage();
             } else if (d.success == 0) {
                 $("#refreshState").fadeOut(200);
                 c.currentTime = 0;
                 c.play();
-                Materialize.toast('發生不明的錯誤。請稍候再試: (' + d.error.code + ')' + d.error.message, 2000);
+                Materialize.toast(lang.error + '(' + d.error.code + ')' + d.error.message, 2000);
             } else if (d.success == -2) {
                 $("#refreshState").fadeOut(200);
                 c.currentTime = 0;
                 c.play();
-                Materialize.toast('您沒有執行此動作的權限。', 2000);
+                Materialize.toast(lang.action_no_priv, 2000);
             }
         }).fail(function (e, f, g) {
             $("#refreshState").fadeOut(200);
             a.currentTime = 0;
             a.play();
-            Materialize.toast(e.status == 404 ? "網l絡錯誤。請檢查您的網路連線，然後再試一次。" : '發生不明的錯誤。請稍候再試: ' + g, 2000);
+            Materialize.toast(e.status == 404 ? lang.network_error : lang.error + g, 2000);
         });
     });
 
@@ -743,24 +743,24 @@ $(function () {
                 o.currentTime = 0;
                 o.play();
                 console.log(d.q);
-                Materialize.toast('已更新項目。', 2000);
+                Materialize.toast(lang.item_updated, 2000);
                 loadEventsPage();
             } else if (d.success == 0) {
                 $("#refreshState").fadeOut(200);
                 c.currentTime = 0;
                 c.play();
-                Materialize.toast('發生不明的錯誤。請稍候再試: (' + d.error.code + ')' + d.error.message, 2000);
+                Materialize.toast(lang.error + '(' + d.error.code + ')' + d.error.message, 2000);
             } else if (d.success == -2) {
                 $("#refreshState").fadeOut(200);
                 c.currentTime = 0;
                 c.play();
-                Materialize.toast('您沒有執行此動作的權限。', 2000);
+                Materialize.toast(lang.action_no_priv, 2000);
             }
         }).fail(function (e, f, g) {
             $("#refreshState").fadeOut(200);
             a.currentTime = 0;
             a.play();
-            Materialize.toast(e.status == 404 ? "網l絡錯誤。請檢查您的網路連線，然後再試一次。" : '發生不明的錯誤。請稍候再試: ' + g, 2000);
+            Materialize.toast(e.status == 404 ? lang.network_error : lang.error + g, 2000);
         });
     });
 });
@@ -803,7 +803,7 @@ function loadMainPage() {
             $("#refreshState").fadeOut(200);
             a.currentTime = 0;
             a.play();
-            Materialize.toast(e.status == 404 ? "網l絡錯誤。請檢查您的網路連線，然後再試一次。" : '發生不明的錯誤。請稍候再試: ' + g, 2000);
+            Materialize.toast(e.status == 404 ? lang.network_error : lang.error + g, 2000);
         });
 
     });
@@ -823,7 +823,7 @@ function loadHelpPage() {
             $("#refreshState").fadeOut(200);
             a.currentTime = 0;
             a.play();
-            Materialize.toast(e.status == 404 ? "網l絡錯誤。請檢查您的網路連線，然後再試一次。" : '發生不明的錯誤。請稍候再試: ' + g, 2000);
+            Materialize.toast(e.status == 404 ? lang.network_error : lang.error + g, 2000);
         });
     });
 }
@@ -842,7 +842,7 @@ function loadAboutPage() {
             $("#refreshState").fadeOut(200);
             a.currentTime = 0;
             a.play();
-            Materialize.toast(e.status == 404 ? "網l絡錯誤。請檢查您的網路連線，然後再試一次。" : '發生不明的錯誤。請稍候再試: ' + g, 2000);
+            Materialize.toast(e.status == 404 ? lang.network_error : lang.error + g, 2000);
         });
     });
 }
@@ -868,12 +868,12 @@ function loadEventsPage() {
                 $("#refreshState").fadeOut(200);
                 a.currentTime = 0;
                 a.play();
-                Materialize.toast("網l絡錯誤。請檢查您的網路連線，然後再試一次。", 2000);
+                Materialize.toast(lang.network_error, 2000);
             } else if (x.status == 403) {
                 $("#refreshState").fadeOut(200);
                 a.currentTime = 0;
                 a.play();
-                Materialize.toast("登入逾時。請重新登入。", 2000);
+                Materialize.toast(lang.timeout, 2000);
                 location.replace("#");
             }
             return false;
@@ -899,12 +899,12 @@ function loadEntriesPage() {
                 $("#refreshState").fadeOut(200);
                 a.currentTime = 0;
                 a.play();
-                Materialize.toast("網l絡錯誤。請檢查您的網路連線，然後再試一次。", 2000);
+                Materialize.toast(lang.network_error, 2000);
             } else if (x.status == 403) {
                 $("#refreshState").fadeOut(200);
                 a.currentTime = 0;
                 a.play();
-                Materialize.toast("登入逾時。請重新登入。", 2000);
+                Materialize.toast(lang.timeout, 2000);
                 location.replace("#");
             }
             return false;
@@ -928,12 +928,12 @@ function loadStatPage() {
                 $("#refreshState").fadeOut(200);
                 a.currentTime = 0;
                 a.play();
-                Materialize.toast("網l絡錯誤。請檢查您的網路連線，然後再試一次。", 2000);
+                Materialize.toast(lang.network_error, 2000);
             } else if (x.status == 403) {
                 $("#refreshState").fadeOut(200);
                 a.currentTime = 0;
                 a.play();
-                Materialize.toast("登入逾時。請重新登入。", 2000);
+                Materialize.toast(lang.timeout, 2000);
                 location.replace("#");
             }
             return false;
@@ -961,12 +961,12 @@ function loadEnrollPage() {
                 $("#refreshState").fadeOut(200);
                 a.currentTime = 0;
                 a.play();
-                Materialize.toast("網l絡錯誤。請檢查您的網路連線，然後再試一次。", 2000);
+                Materialize.toast(lang.network_error, 2000);
             } else if (x.status == 403) {
                 $("#refreshState").fadeOut(200);
                 a.currentTime = 0;
                 a.play();
-                Materialize.toast("登入逾時。請重新登入。", 2000);
+                Materialize.toast(lang.timeout, 2000);
                 location.replace("#");
             }
             return false;
@@ -1016,7 +1016,7 @@ function captchaExp(value) {
     captchaValue = "";
     b.currentTime = 0;
     b.play();
-    Materialize.toast("人機驗證已過期，請重新勾選 [我不是自動程式] 選框。", 2000);
+    Materialize.toast(lang.verification_timeout, 2000);
     console.log("captcha expired");
 }
 
@@ -1039,18 +1039,18 @@ function checkLockPwd() {
             } else {
                 c.currentTime = 0;
                 c.play();
-                $("#errortext").text("密碼錯誤。");
+                $("#errortext").text(lang.lock_pwd_incorrect);
             }
         });
     } else {
         if ($('#lockpwdinp').val() == "") {
             c.currentTime = 0;
             c.play();
-            $("#errortext").text("鎖定密碼不可為空白。");
+            $("#errortext").text(lang.lock_pwd_blank);
         } else if ($('#lockpwdinp').val().length < 6) {
             c.currentTime = 0;
             c.play();
-            $("#errortext").text("鎖定密碼的長度必須至少為 6。");
+            $("#errortext").text(lang.lock_pwd_length);
         } else {
             $('#lockpwd').val($('#lockpwdinp').val());
             $("#modal6").closeModal();
@@ -1070,14 +1070,15 @@ function timerIncrement() {
                 url: "logout.html",
                 cache: false
             }).done(function (d) {
+                location.replace("#");
                 o.play();
                 usertype = "";
                 captchaValue = "";
-                Materialize.toast('您已經登出。', 2000);
+                Materialize.toast(lang.logout, 2000);
                 loadMainPage();
             }).fail(function (e, f, g) {
                 $("#refreshState").fadeOut(200);
-                Materialize.toast(e.status == 404 ? "網l絡錯誤。請檢查您的網路連線，然後再試一次。" : '發生不明的錯誤。請稍候再試: ' + g, 2000);
+                Materialize.toast(e.status == 404 ? lang.network_error : lang.error + g, 2000);
                 a.currentTime = 0;
                 a.play();
             })

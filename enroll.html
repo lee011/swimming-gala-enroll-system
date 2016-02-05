@@ -1,5 +1,6 @@
 <?php
 session_start();
+    include_once "lang/loadLanguage.html";
 if (isset($_SESSION['username'])) {
     $mysqli = mysqli_connect('localhost', 'guest', '', 'swimminggala');
     mysqli_query($mysqli,"SET NAMES 'utf8'");
@@ -37,9 +38,9 @@ if (isset($_SESSION['username'])) {
 ?>
 <div>
     <ul class="tabs">
-        <li class="tab waves-effect waves-light"><a class="active" href="#enroll-select"><?=$expired?"檢視":"選取"?>報名項目</a></li>
-        <li class="tab waves-effect waves-light"><a href="#enroll-events">所有項目</a></li>
-        <li class="tab waves-effect waves-light"><a href="#enroll-notes">報名須知</a></li>
+        <li class="tab waves-effect waves-light"><a class="active" href="#enroll-select"><?=$expired?$lang['label_view_items']:$lang['label_select_items']?></a></li>
+        <li class="tab waves-effect waves-light"><a href="#enroll-events"><?=$lang['label_all_items']?></a></li>
+        <li class="tab waves-effect waves-light"><a href="#enroll-notes"><?=$lang['label_notes']?></a></li>
     </ul>
 </div>
 <div id="enroll-events" style="padding-top: 48px;">
@@ -50,28 +51,29 @@ if (isset($_SESSION['username'])) {
         <i class="material-icons circle"><?php if ($ie["type"] == "I") echo "person"; else echo "group"; ?></i>
         <div class="title truncate tooltipped" data-position="bottom" data-delay="50" data-tooltip="<?=$ie['ename']?> <?=$ie['cname']?>"><?=$ie['ename']?> <?=$ie['cname']?></div>
         <span>
-            項目編碼: <?=$ie['id']?><br />
-            組別: <?php switch ($ie['grade']) {
+            <?=$lang['label_eid_a']?><?=$ie['id']?><br />
+            <?=$lang['label_grade']?>
+                                           <?php switch ($ie['grade']) {
                           case "GA":
-                              echo "女子甲組";
+                              echo $lang['label_option_girls_a'];
                               break;
                           case "GB":
-                              echo "女子乙組";
+                              echo $lang['label_option_girls_b'];
                               break;
                           case "GC":
-                              echo "女子丙組";
+                              echo $lang['label_option_girls_c'];
                               break;
                           case "BA":
-                              echo "男子甲組";
+                              echo $lang['label_option_boys_a'];
                               break;
                           case "BB":
-                              echo "男子乙組";
+                              echo $lang['label_option_boys_b'];
                               break;
                           case "BC":
-                              echo "男子丙組";
+                              echo $lang['label_option_boys_c'];
                               break;
                           case "N":
-                              echo "未指定組別";
+                              echo $lang['label_no_grade'];
                               break;
                       } ?><br />
             </span>
@@ -86,12 +88,12 @@ if (isset($_SESSION['username'])) {
 ?>
 <div id="enroll-select" style="padding-top: 48px;">
     <div class="card-panel red white-text">
-        報名時限已過。您現在只有查看權限。
+        <?=$lang['label_expired']?>
     </div>
-    <p>您的報名資訊於 <?=date_format($d, 'Y年m月d日, H:i:s')?> 最後更新。</p>
+    <p><?=$lang['label_last_updated_1']?><?=date_format($d, $lang['date_format'])?><?=$lang['label_last_updated_2']?></p>
     <div class="input-field">
         <select name="firstiev" id="firstiev" class="matsel" disabled>
-            <option value="">不選取</option>
+            <option value=""><?=$lang['label_not_selected']?></option>
             <?php
                 foreach ($e as $ie) {
                     if ($ie["type"] == "I") {
@@ -102,11 +104,11 @@ if (isset($_SESSION['username'])) {
                 }
             ?>
         </select>
-        <label for="firstev">個人項目 - 第一</label>
+        <label for="firstev"><?=$lang['label_indv_first']?></label>
     </div>
     <div class="input-field">
         <select name="secondiev" id="secondiev" class="matsel" disabled>
-            <option value="">不選取</option>
+            <option value=""><?=$lang['label_not_selected']?></option>
             <?php
                 foreach ($e as $ie) {
                     if ($ie["type"] == "I") {
@@ -117,11 +119,11 @@ if (isset($_SESSION['username'])) {
                 }
             ?>
         </select>
-        <label for="secondiev">個人項目 - 第二</label>
+        <label for="secondiev"><?=$lang['label_indv_second']?></label>
     </div>
     <div class="input-field">
         <select name="thirdiev" id="thirdiev" class="matsel" disabled>
-            <option value="">不選取</option>
+            <option value=""><?=$lang['label_not_selected']?></option>
             <?php
                 foreach ($e as $ie) {
                     if ($ie["type"] == "I") {
@@ -132,11 +134,11 @@ if (isset($_SESSION['username'])) {
                 }
             ?>
         </select>
-        <label for="thirdiev">個人項目 - 第三</label>
+        <label for="thirdiev"><?=$lang['label_indv_third']?></label>
     </div>
     <div class="input-field">
         <select name="rev" id="rev" class="matsel" multiple disabled>
-            <option value="" disabled selected>不選取</option>
+            <option value="" disabled selected><?=$lang['label_not_selected']?></option>
             <?php
                 foreach ($e as $ie) {
                     if ($ie["type"] == "R") {
@@ -147,10 +149,10 @@ if (isset($_SESSION['username'])) {
                 }
             ?>
         </select>
-        <label for="thirdiev">接力項目</label>
+        <label for="thirdiev"><?=$lang['label_rel_all']?></label>
     </div>
-    有關接力項目的填寫，請看 [報名須知]。<br />
-    <a class="waves-effect waves-light btn disabled" id="updateentry">更新</a>
+    <?=$lang['label_see_notes']?><br />
+    <a class="waves-effect waves-light btn disabled" id="updateentry"><?=$lang['label_update']?></a>
 </div>
 <?php
             } else if ($started) {
@@ -161,13 +163,13 @@ if (isset($_SESSION['username'])) {
     </script>
     <?php if ($n['lockStatus'] != "unlocked") { ?>
     <div class="card-panel red white-text">
-        報名項目已由<?=$n['lockStatus'] == "lockedByUser"?"您鎖定。請按下方 [鎖定項目選擇] 開關解除鎖定。":"管理員鎖定。請聯絡管理員解除鎖定。"?>
+        <?=$n['lockStatus'] == "lockedByUser"?$lang['label_locked_by_user']:$lang['label_locked_by_admin']?>
     </div>
     <?php } ?>
-    <p>您的報名資訊於 <?=date_format($d, 'Y年m月d日, H:i:s')?> 最後更新。</p>
+    <p><?=$lang['label_last_updated_1']?><?=date_format($d, $lang['date_format'])?><?=$lang['label_last_updated_2']?></p>
     <div class="input-field">
         <select name="firstiev" id="firstiev" class="matsel" <?php if ($n['lockStatus'] != "unlocked") { echo "disabled"; } ?>>
-            <option value="">不選取</option>
+            <option value=""><?=$lang['label_not_selected']?></option>
 <?php
                 foreach ($e as $ie) { 
                     if ($ie["type"] == "I") { ?>
@@ -177,11 +179,11 @@ if (isset($_SESSION['username'])) {
                 }
 ?>
         </select>
-        <label for="firstev">個人項目 - 第一</label>
+        <label for="firstev"><?=$lang['label_indv_first']?></label>
     </div>
     <div class="input-field">
         <select name="secondiev" id="secondiev" class="matsel" <?php if ($indv[0] == "" || $n['lockStatus'] != "unlocked") echo "disabled"; ?>>
-            <option value="">不選取</option>
+            <option value=""><?=$lang['label_not_selected']?></option>
 <?php
                 foreach ($e as $ie) { 
                     if ($ie["type"] == "I") { ?>
@@ -191,11 +193,11 @@ if (isset($_SESSION['username'])) {
                 }
 ?>
         </select>
-        <label for="secondiev">個人項目 - 第二</label>
+        <label for="secondiev"><?=$lang['label_indv_second']?></label>
     </div>
     <div class="input-field">
         <select name="thirdiev" id="thirdiev" class="matsel" <?php if ($indv[0] == "" || $indv[1] == "" || $n['lockStatus'] != "unlocked") echo "disabled"; ?>>
-            <option value="">不選取</option>
+            <option value=""><?=$lang['label_not_selected']?></option>
 <?php
                 foreach ($e as $ie) { 
                     if ($ie["type"] == "I") { ?>
@@ -205,11 +207,11 @@ if (isset($_SESSION['username'])) {
                 }
 ?>
         </select>
-        <label for="thirdiev">個人項目 - 第三</label>
+        <label for="thirdiev"><?=$lang['label_indv_third']?></label>
     </div>
     <div class="input-field">
         <select name="rev" id="rev" class="matsel" multiple <?php if ($n['lockStatus'] != "unlocked") { echo "disabled"; } ?>>
-            <option value="" disabled selected>不選取</option>
+            <option value="" disabled selected><?=$lang['label_not_selected']?></option>
 <?php
                 foreach ($e as $ie) {
                     if ($ie["type"] == "R") { ?>
@@ -219,34 +221,34 @@ if (isset($_SESSION['username'])) {
                 }
 ?>
         </select>
-        <label for="thirdiev">接力項目</label>
+        <label for="thirdiev"><?=$lang['label_rel_all']?></label>
     </div>
-    有關接力項目的填寫，請看 [報名須知]。<br />
+    <?=$lang['label_see_notes']?><br />
     <div class="switch">
-        <span class="tooltipped" style="text-decoration: dashed; cursor: help;" data-position="bottom" data-delay="50" data-tooltip="鎖定項目選擇可防止其他人擅自更改報名項目。">鎖定項目選擇</span>
+        <span class="tooltipped" style="text-decoration: dashed; cursor: help;" data-position="bottom" data-delay="50" data-tooltip="<?=$lang['tooltip_lock_sel']?>"><?=$lang['label_lock_sel']?></span>
         <label>
             <input type="checkbox" id="lockentry" <?php if ($n['lockStatus'] != "unlocked") { echo "checked"; } ?> <?php if ($n['lockStatus'] == "lockedByAdmin") { echo "disabled"; } ?>>
             <span class="lever"></span>
         </label>
     </div>
     <input type="hidden" id="lockpwd" /><br />
-    <a class="waves-effect waves-light btn <?php if ($n['lockStatus'] == "lockedByAdmin") { echo "disabled"; } ?>" id="updateentry">更新</a>
+    <a class="waves-effect waves-light btn <?php if ($n['lockStatus'] == "lockedByAdmin") { echo "disabled"; } ?>" id="updateentry"><?=$lang['label_update']?></a>
 </div>
 <?php
             } else {
 ?>
 <div id="enroll-select" style="padding-top: 48px;">
     <div class="card-panel red white-text">
-        報名時段還沒開始，請稍後再次瀏覽。
+        <?=$lang['label_not_started']?>
     </div>
 </div>
 <?php
             }
 ?>
 <div id="enroll-notes" style="padding-top: 48px;">
-    <p>1. 你最多可選取 3 項個人項目。</p>
-    <p>2. 接力項目請先填寫報名表格，然後才到此系統輸入報名資料。<b>為免系統編算資料錯誤，請只安排其中一位隊員到系統輸入報名資料。</b></p>
-    <p>3. 報名時段：<?=date_format($ds, 'Y年m月d日, H:i:s')?> 到 <?=date_format($dl, 'Y年m月d日, H:i:s')?>。</p>
+    <p><?=$lang['label_notes_1']?></p>
+    <p><?=$lang['label_notes_2']?></p>
+    <p><?=$lang['label_notes_3']?><?=date_format($ds, $lang['date_format'])?><?=$lang['label_notes_4']?><?=date_format($dl, $lang['date_format'])?><?=$lang['label_notes_5']?></p>
 </div>
 <?php
         }
