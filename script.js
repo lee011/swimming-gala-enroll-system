@@ -82,6 +82,7 @@ $(function () {
             if (h == "") {
                 $("#menuButton").show();
                 $("#refButton").css("right", 48);
+                $("#abMainTitle").css("right", 96);
                 setActionBarTitle(lang.title, "");
                 setBackButtonVisible(false);
                 $("#refreshState").fadeIn(200);
@@ -90,6 +91,7 @@ $(function () {
             } else if (h == "help") {
                 $("#menuButton").hide();
                 $("#refButton").css("right", 8);
+                $("#abMainTitle").css("right", 56);
                 setActionBarTitle(lang.title, lang.help_title);
                 setBackButtonVisible(true);
                 $("#refreshState").fadeIn(200);
@@ -98,6 +100,7 @@ $(function () {
             } else if (h == "about") {
                 $("#menuButton").hide();
                 $("#refButton").css("right", 8);
+                $("#abMainTitle").css("right", 56);
                 setActionBarTitle(lang.title, lang.about_title);
                 setBackButtonVisible(true);
                 $("#refreshState").fadeIn(200);
@@ -107,6 +110,7 @@ $(function () {
                 if (usertype != undefined && usertype != "") {
                     $("#menuButton").show();
                     $("#refButton").css("right", 48);
+                    $("#abMainTitle").css("right", 96);
                     if (h == "events") {
                         if (usertype == "admin") {
                             setActionBarTitle(lang.title, lang.manage_ev_title);
@@ -1063,6 +1067,7 @@ function timerIncrement() {
     if (loggedin) {
         idleTime++;
         if (idleTime > 599) {
+            loggedin = false;
             $("#modal7").closeModal();
             idleWarningShown = false;
             $("#refreshState").fadeIn(200);

@@ -1,6 +1,6 @@
 ﻿var lang = {
     "code": "en",
-    "title": "Swimming Gala Enrolment System (Beta)",
+    "title": "Swimming Gala Enrollment System (Beta)",
     "help_title": "Help",
     "about_title": "About",
     "manage_ev_title": "Manage Events",

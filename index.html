@@ -1,9 +1,10 @@
-<?php session_start(); include_once "lang/loadLanguage.html"; ?>
+﻿<?php session_start(); include_once "lang/loadLanguage.html"; ?>
 <!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
+    <meta name="theme-color" content="#009688">
     <title><?=$lang['page_title']?></title>
     <meta name="viewport" content="width=device-width" />
     <link href="StyleSheet.Main.min.css" rel="stylesheet" />
@@ -19,7 +20,7 @@
         <div id="backButton" class="waves-effect waves-light white-text" style="position: absolute; left: -56px; top: 0; width: 56px; height: 56px; padding: 16px">
             <i class="material-icons" style="font-size: 24px;">arrow_back</i>
         </div>
-        <div id="abMainTitle" style="position: absolute; left: 12px; top: 18px; font-size: 18px;">
+        <div id="abMainTitle" style="position: absolute; left: 12px; top: 18px; font-size: 18px; right: 96px" class="truncate">
             <?=$lang['page_title']?>
         </div>
         <div id="abSubTitle" style="position: absolute; left: 12px; top: 31px; font-size: 14px; display: none">
@@ -139,8 +140,8 @@
             <p><?=$lang['modal6_text']?></p>
             <input style="display: none" name="ecnamxe" id="ecnamxe" type="password" />
             <div class="input-field">
-                <input id="lockpwdinp" name="ecname" type="password" />
-                <label for="lockpwdinp" class="active"><?=$lang['modal6_title']?></label>
+                <input id="lockpwdinp" type="password" />
+                <label for="lockpwdinp"><?=$lang['modal6_title']?></label>
             </div>
             <div id="errortext" class="red-text"></div>
         </div>
