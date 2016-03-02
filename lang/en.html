@@ -47,8 +47,9 @@ Note: The secured connection does not support Windows XP (Except Firefox) or And
     'label_switch_to_ssl'   => 'Switch to secured connection',
     'label_download_cert'   => 'Download certificates required',
     'label_hide'            => 'Hide',
-    'announcement_title'    => '',
-    'announcement_text'     => '',
+    'announcement_title'    => 'Notice of Temporary Suspension of Service',
+    'announcement_text'     => 'Due to an electricial device check, the service will not be available from 21/03/2016, 06:30:00 to 21/03/2016, 17:30:00. We apologize for any inconvenience caused.<br />
+(Notice number 160226-C003, effective until 21/03/2016)',
     'info_title'            => 'Your Information',
     'label_cls_no'          => 'Class and Number: ', // also used in editEntry.html
     'label_name'            => 'Name: ', // also used in editEntry.html
@@ -77,6 +78,9 @@ Note: The secured connection does not support Windows XP (Except Firefox) or And
     'label_b_grade'         => 'B', // also used in editEntry.html
     'label_c_grade'         => 'C', // also used in editEntry.html
     'label_no_grade'         => '(No grade specified)', // also used in editEntry.html
+    'helper_title'          => 'Apply for Helper',
+    'helper_text'           => 'You can apply for helper in the apply page.',
+    'label_name1'           => 'Name', // also used in editEntry.html
 
     // enroll.html
     'label_select_items'    => 'Select Items',
@@ -119,8 +123,8 @@ Note: The secured connection does not support Windows XP (Except Firefox) or And
     
     // about.html
     'version_title'         => 'Version',
-    'version_text'          => 'Ver. 0.15.2<br />
-Updated on 24/02/2016<br />
+    'version_text'          => 'Ver. 0.16.0<br />
+Updated on 02/03/2016<br />
 &copy; 2015-2016 Kelvin Lee. All rights reserved.',
     'disclaimer_title'      => 'Disclaimer',
     'disclaimer_text'       => 'The information on <b>Sha Tin Methodist College Swimming Gala Enrollment System (Beta) ("The System")</b> is provided to you on an "AS IS" basis without any express or implied warranty of any kind and is provided for a general, indicative purpose only.  In particular, the developers does not make any express or implied warranty as to the accuracy, fitness for a particular purpose, non-infringement, reliability, security, timeliness or freedom from computer virus in relation to such contents.  The developers will not be liable for any errors in, omissions from, or misstatements or misrepresentations (whether express or implied) concerning any such information, and will not have or accept any liability, obligation or responsibility whatsoever for any loss, destruction or damage (including without limitation consequential loss, destruction or damage) however arising from or in respect of any use or misuse of or reliance on the information delivered on the system or inability to use the system.',
@@ -146,6 +150,36 @@ For relay events, please check the items. Please read the Notes before entering 
 You can view your entries, but cannot edit, after the enrollment period.',
     'have_error_title'      => 'What should I do when something wrong happened?',
     'have_error_text'       => 'Please contact the developers for bug fixes or solutions. Please have a detailed description and a screenshot of the problem for the developers to investigate it.<br />
-Get support on <a href="https://www.facebook.com/STMCSportsEventSystems/" target="_blank">our Facebook page</a>.'
+Get support on <a href="https://www.facebook.com/STMCSportsEventSystems/" target="_blank">our Facebook page</a>.',
+
+    // helper.html
+    'label_helper_select'   => 'Apply for Helper',
+    'label_helper_list'     => 'Applicants List',
+    'label_select_post'     => 'Post',
+    'label_post'            => 'Post',
+    'label_helper_note'     => 'Note: Posts will be allocated by first-come-first served basis if number of applicants of certain posts is larger than the limit.'
+);
+$helpers = array(
+    'ann' => 'Announcer',
+    'pos' => 'Position Assistant',
+    'tim' => 'Timekeeper'
 );
 ?>
+<?php if(isset($_GET['outcontents'])){ ?>
+English Language File
+<table style="border-collapse: collapse; border: 1px solid black;">
+    <tr style="border-collapse: collapse; border: 1px solid black;">
+        <th>Key</th>
+        <td>Value</td>
+    </tr>
+<?php
+foreach ($lang as $k => $v) { ?>
+    <tr style="border-collapse: collapse; border: 1px solid black;">
+        <th><?=$k?></th>
+        <td><pre><?=htmlspecialchars($v, ENT_NOQUOTES|ENT_HTML401)?></pre></td>
+    </tr>
+<?php
+}
+}
+?>
+</table>

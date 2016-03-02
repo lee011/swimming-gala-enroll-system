@@ -35,5 +35,6 @@
     "chart_boys": "Boys Enroll Count",
     "chart_girls": "Girls Enroll Count",
     "chart_count": "Count",
-    "chart_title": "Enroll Count Chart (until "
+    "chart_title": "Enroll Count Chart (until ",
+    "helper_title": "Apply for Helper"
 }

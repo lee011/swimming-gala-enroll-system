@@ -35,5 +35,6 @@
     "chart_boys": "男子組報名計數",
     "chart_girls": "女子組報名計數",
     "chart_count": "人次",
-    "chart_title": "報名人次圖表 (統計截至 "
+    "chart_title": "報名人次圖表 (統計截至 ",
+    "helper_title": "工作人員報名"
 }

@@ -48,8 +48,8 @@ $lang = array(
     'label_switch_to_ssl'   => '立即轉用加密連線',
     'label_download_cert'   => '下載所需憑證',
     'label_hide'            => '隱藏',
-    'announcement_title'    => '',
-    'announcement_text'     => '',
+    'announcement_title'    => '暫停使用公告',
+    'announcement_text'     => '由於需進行電力裝置檢查，本系統將於以下時間暫停服務：2016年03月21日, 06:30:00 到 2016年03月21日, 17:30:00。不便之處，敬請見諒。<br />（公告號 160226-C003，有效日期至 2016年03月21日）',
     'info_title'            => '您的資訊',
     'label_cls_no'          => '班別與學號: ', // also used in editEntry.html
     'label_name'            => '姓名: ', // also used in editEntry.html
@@ -77,7 +77,10 @@ $lang = array(
     'label_a_grade'         => '甲組', // also used in editEntry.html
     'label_b_grade'         => '乙組', // also used in editEntry.html
     'label_c_grade'         => '丙組', // also used in editEntry.html
-    'label_no_grade'         => '未指定組別', // also used in editEntry.html
+    'label_no_grade'        => '未指定組別', // also used in editEntry.html
+    'helper_title'          => '工作人員報名',
+    'helper_text'           => '您可在工作人員報名頁面登記成為工作人員。',
+    'label_name1'           => '姓名', // also used in editEntry.html
 
     // enroll.html
     'label_select_items'    => '選取報名項目',
@@ -120,8 +123,8 @@ $lang = array(
     
     // about.html
     'version_title'         => '版本資訊',
-    'version_text'          => '版本 0.15.2<br />
-更新日期 24/02/2016<br />
+    'version_text'          => '版本 0.16.0<br />
+更新日期 02/03/2016<br />
 &copy; 2015-2016 Kelvin Lee. All rights reserved.',
     'disclaimer_title'      => '免責聲明',
     'disclaimer_text'       => '<b>沙田循道衛理中學水運會報名系統 (測試版)（「系統」）</b>中的所有資訊均以「現況」形式提供的，並無任何種類的明示或暗示的保證，以及只作一般性質及說明用途。尤其是，對於該等內容的準確性、可靠性、安全性及時間性，系統開發人員概不作任何明示或默示的保證，系統開發人員亦不作出任何明示或暗示保證該等內容適合使用，並無侵權或不含電腦病毒。對該等資料，系統開發人員不會就任何錯誤、遺漏、或錯誤陳述或失實陳述（不論明示或默示的）承擔任何責任。對任何因使用或不當使用或依據系統所載的或經系統的任何資料或不能使用系統而引致或所涉及的任何損失、毀壞或損害（包括但不限於相應而生的損失、毀壞或損害），系統開發人員概不承擔任何法律責任、義務或責任。',
@@ -147,6 +150,36 @@ $lang = array(
 當報名時段過後，您仍然能在報名頁面檢視您已報名的項目，但您不能夠再更改項目。',
     'have_error_title'      => '發生了錯誤該怎麼辦？',
     'have_error_text'       => '請聯絡系統開發者以修正錯誤或取得解決方法。提交錯誤報告時，請儘量詳盡描述，並提供錯誤截圖，以便開發人員研究問題。<br />
-<a href="https://www.facebook.com/STMCSportsEventSystems/" target="_blank">前往我們的 Facebook 專頁</a>以取得支援。'
+<a href="https://www.facebook.com/STMCSportsEventSystems/" target="_blank">前往我們的 Facebook 專頁</a>以取得支援。',
+
+    // helper.html
+    'label_helper_select'   => '登記工作人員',
+    'label_helper_list'     => '已登記名單',
+    'label_select_post'     => '工作人員',
+    'label_post'            => '崗位',
+    'label_helper_note'     => '請注意：如果登記工作人員的人數多於該崗位的名額，將依先到先得形式分配。'
+);
+$helpers = array(
+    'ann' => '廣播員',
+    'pos' => '名次裁判',
+    'tim' => '計時員'
 );
 ?>
+<?php if(isset($_GET['outcontents'])){ ?>
+中文語系檔
+<table style="border-collapse: collapse; border: 1px solid black;">
+    <tr style="border-collapse: collapse; border: 1px solid black;">
+        <th>索引鍵</th>
+        <td>值</td>
+    </tr>
+<?php
+foreach ($lang as $k => $v) { ?>
+    <tr style="border-collapse: collapse; border: 1px solid black;">
+        <th><?=$k?></th>
+        <td><pre><?=htmlspecialchars($v, ENT_NOQUOTES|ENT_HTML401)?></pre></td>
+    </tr>
+<?php
+}
+}
+?>
+</table>

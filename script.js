@@ -136,6 +136,12 @@ $(function () {
                         $("#refreshState").fadeIn(200);
                         lasthash = "enroll";
                         loadStatPage();
+                    } else if (h == "helper") {
+                        setActionBarTitle(lang.title, lang.helper_title);
+                        setBackButtonVisible(true);
+                        $("#refreshState").fadeIn(200);
+                        lasthash = "helper";
+                        loadHelperPage();
                     } else if (h == "entries") {
                         if (usertype == "admin" || usertype == "helper") {
                             setActionBarTitle(lang.title, lang.manage_entry_title);
@@ -229,8 +235,14 @@ $(function () {
                     setActionBarTitle(lang.title, lang.stat_title);
                     setBackButtonVisible(true);
                     $("#refreshState").fadeIn(200);
-                    lasthash = "enroll";
+                    lasthash = "stat";
                     loadStatPage();
+                } else if (h == "helper") {
+                    setActionBarTitle(lang.title, lang.helper_title);
+                    setBackButtonVisible(true);
+                    $("#refreshState").fadeIn(200);
+                    lasthash = "helper";
+                    loadHelperPage();
                 } else if (h == "entries") {
                     if (usertype == "admin" || usertype == "helper") {
                         setActionBarTitle(lang.title, lang.manage_entry_title);
@@ -372,6 +384,39 @@ $(function () {
             c.currentTime = 0;
             c.play();
         }
+    });
+
+    $(document).on("click", "#updatehelper:not(.disabled)", function () {
+        $("#updatehelper").addClass("disabled");
+        $("#refreshState").fadeIn(200);
+        $.ajax({
+            url: "handleHelper.html",
+            data: {
+                post: $("#selpost").val()
+            },
+            dataType: "json",
+            method: "post",
+            cache: false
+        }).done(function (d) {
+            $("#updatehelper").removeClass("disabled");
+            if (d.success == 1) {
+                Materialize.toast(lang.item_updated, 2000);
+                loadHelperPage();
+                o.currentTime = 0;
+                o.play();
+            } else if (d.success == 0) {
+                $("#refreshState").fadeOut(200);
+                Materialize.toast(lang.error + '(' + d.error.code + ')' + d.error.message, 2000);
+                a.currentTime = 0;
+                a.play();
+            }
+        }).fail(function (e, f, g) {
+            $("#updatehelper").removeClass("disabled");
+            $("#refreshState").fadeOut(200);
+            Materialize.toast(e.status == 404 ? lang.network_error : lang.error + g, 2000);
+            a.currentTime = 0;
+            a.play();
+        });
     });
 
     $(document).on("change", "#lockentry", function () {
@@ -926,6 +971,38 @@ function loadStatPage() {
             $("#mainContent").html(d);
             $("#mainContent").fadeIn(200);
             $("#refreshState").fadeOut(200);
+            return true;
+        }).fail(function (x, s, e) {
+            if (x.status == 404) {
+                $("#refreshState").fadeOut(200);
+                a.currentTime = 0;
+                a.play();
+                Materialize.toast(lang.network_error, 2000);
+            } else if (x.status == 403) {
+                $("#refreshState").fadeOut(200);
+                a.currentTime = 0;
+                a.play();
+                Materialize.toast(lang.timeout, 2000);
+                location.replace("#");
+            }
+            return false;
+        });
+    });
+}
+
+function loadHelperPage() {
+    $("#actionBar").css("box-shadow", "rgba(0, 0, 0, 0.25) 0px 2px 1px 0px");
+    $("#mainContent").fadeOut(200, function () {
+        $.ajax({
+            url: "helper.html",
+            cache: false
+        }).done(function (d) {
+            $("#mainContent").html(d);
+            $("#mainContent").fadeIn(200);
+            $("#refreshState").fadeOut(200);
+            $('.matsel').material_select();
+            $('ul.tabs').tabs();
+            $("#actionBar").css("box-shadow", "none");
             return true;
         }).fail(function (x, s, e) {
             if (x.status == 404) {
