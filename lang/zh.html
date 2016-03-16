@@ -48,8 +48,6 @@ $lang = array(
     'label_switch_to_ssl'   => '立即轉用加密連線',
     'label_download_cert'   => '下載所需憑證',
     'label_hide'            => '隱藏',
-    'announcement_title'    => '暫停使用公告',
-    'announcement_text'     => '由於需進行電力裝置檢查，本系統將於以下時間暫停服務：2016年03月21日, 06:30:00 到 2016年03月21日, 17:30:00。不便之處，敬請見諒。<br />（公告號 160226-C003，有效日期至 2016年03月21日）',
     'info_title'            => '您的資訊',
     'label_cls_no'          => '班別與學號: ', // also used in editEntry.html
     'label_name'            => '姓名: ', // also used in editEntry.html
@@ -91,6 +89,7 @@ $lang = array(
     'label_expired'         => '報名時限已過。您現在只有查看權限。',
     'label_last_updated_1'  => '您的報名資訊於 ',
     'label_last_updated_2'  => ' 最後更新。', // also used in editEntry.html
+    'label_not_updated'     => '您的報名資訊從未更新過。',
     'label_not_selected'    => '不選取', // also used in editEntry.html
     'label_indv_first'      => '個人項目 - 第一', // also used in editEntry.html
     'label_indv_second'     => '個人項目 - 第二', // also used in editEntry.html
@@ -120,11 +119,12 @@ $lang = array(
     'label_not_found'       => '沒有相符項目。',
     'label_changing'        => '您正在修改：',
     'label_last_updated_a'  => '報名資訊於 ',
+    'label_not_updated_a'   => '報名資訊從未更新過。',
     
     // about.html
     'version_title'         => '版本資訊',
-    'version_text'          => '版本 0.16.0<br />
-更新日期 02/03/2016<br />
+    'version_text'          => '版本 0.16.1<br />
+更新日期 16/03/2016<br />
 &copy; 2015-2016 Kelvin Lee. All rights reserved.',
     'disclaimer_title'      => '免責聲明',
     'disclaimer_text'       => '<b>沙田循道衛理中學水運會報名系統 (測試版)（「系統」）</b>中的所有資訊均以「現況」形式提供的，並無任何種類的明示或暗示的保證，以及只作一般性質及說明用途。尤其是，對於該等內容的準確性、可靠性、安全性及時間性，系統開發人員概不作任何明示或默示的保證，系統開發人員亦不作出任何明示或暗示保證該等內容適合使用，並無侵權或不含電腦病毒。對該等資料，系統開發人員不會就任何錯誤、遺漏、或錯誤陳述或失實陳述（不論明示或默示的）承擔任何責任。對任何因使用或不當使用或依據系統所載的或經系統的任何資料或不能使用系統而引致或所涉及的任何損失、毀壞或損害（包括但不限於相應而生的損失、毀壞或損害），系統開發人員概不承擔任何法律責任、義務或責任。',
@@ -156,13 +156,24 @@ $lang = array(
     'label_helper_select'   => '登記工作人員',
     'label_helper_list'     => '已登記名單',
     'label_select_post'     => '工作人員',
-    'label_post'            => '崗位',
-    'label_helper_note'     => '請注意：如果登記工作人員的人數多於該崗位的名額，將依先到先得形式分配。'
+    'label_post'            => '崗位 (只有英文)',
+    'label_helper_note'     => '請注意：如果登記工作人員的人數多於該崗位的名額，將依先到先得方式分配崗位。',
+	'label_list_sort'       => '此列表以崗位名稱順序，後以更新日期順序排序。'
 );
 $helpers = array(
-    'ann' => '廣播員',
-    'pos' => '名次裁判',
-    'tim' => '計時員'
+    'off' => 'Official Stand Recorders',
+    'pri' => 'Prize Presentation Helper',
+    'mar' => 'Marshals',
+    'mak' => 'Marksman Assistants',
+    'tim' => 'Time-keepers',
+    'pos' => 'Position Assistants',
+    'fin' => 'Finishing Recorders',
+    'run' => 'Runners',
+    'sto' => 'Stroke Judge Assistants',
+    'dis' => 'Display Board Helpers',
+    'fal' => 'False Start Rope Helper',
+    'che' => 'Helpers for Cheering Team Competition',
+    'res' => 'Reserved Helpers'
 );
 ?>
 <?php if(isset($_GET['outcontents'])){ ?>

@@ -2,7 +2,7 @@
 session_start();
     include_once "lang/loadLanguage.html";
 if (isset($_SESSION['username'])) {
-    $mysqli = mysqli_connect('localhost', 'guest', '', 'swimminggala');
+    $mysqli = mysqli_connect('lee011.kmdns.net', 'guest', '', 'swimminggala');
     mysqli_query($mysqli,"SET NAMES 'utf8'");
     if ($res = mysqli_query($mysqli,"select * from config")) {
         $a = mysqli_fetch_assoc($res);
@@ -27,12 +27,17 @@ if (isset($_SESSION['username'])) {
                     break;
             }
             if ($res1 = mysqli_query($mysqli,"select * from events where grade = '". $s . $a["grade"] ."' order by id asc")) {
-                $e = mysqli_fetch_all($res1, MYSQLI_BOTH);
+                $j = 0;
+                $e = array();
+                while ($ex = mysqli_fetch_array($res1)) {
+                    $e[$j] = $ex;
+                    $j++;
+                }
             }
             if ($res2 = mysqli_query($mysqli,"select * from entries where sid = '". $a['id'] ."' ")) {
                 $n = mysqli_fetch_assoc($res2);
                 $indv = explode(",", $n["indveids"]);
-                $d = date_create($n["updateTime"]);
+                $d = ($n["updateTime"] == '0000-00-00 00:00:00' ? "" : date_create($n["updateTime"]));
                 $rel = explode(",", $n["releids"]);
             }
 ?>
@@ -90,7 +95,7 @@ if (isset($_SESSION['username'])) {
     <div class="card-panel red white-text">
         <?=$lang['label_expired']?>
     </div>
-    <p><?=$lang['label_last_updated_1']?><?=date_format($d, $lang['date_format'])?><?=$lang['label_last_updated_2']?></p>
+    <p><?php if ($d == "") { echo $lang['label_not_updated']; } else { ?><?=$lang['label_last_updated_1']?><?=date_format($d, $lang['date_format'])?><?=$lang['label_last_updated_2']?><?php } ?></p>
     <div class="input-field">
         <select name="firstiev" id="firstiev" class="matsel" disabled>
             <option value=""><?=$lang['label_not_selected']?></option>
@@ -166,7 +171,7 @@ if (isset($_SESSION['username'])) {
         <?=$n['lockStatus'] == "lockedByUser"?$lang['label_locked_by_user']:$lang['label_locked_by_admin']?>
     </div>
     <?php } ?>
-    <p><?=$lang['label_last_updated_1']?><?=date_format($d, $lang['date_format'])?><?=$lang['label_last_updated_2']?></p>
+    <p><?php if ($d == "") { echo $lang['label_not_updated']; } else { ?><?=$lang['label_last_updated_1']?><?=date_format($d, $lang['date_format'])?><?=$lang['label_last_updated_2']?><?php } ?></p>
     <div class="input-field">
         <select name="firstiev" id="firstiev" class="matsel" <?php if ($n['lockStatus'] != "unlocked") { echo "disabled"; } ?>>
             <option value=""><?=$lang['label_not_selected']?></option>

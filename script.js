@@ -849,10 +849,22 @@ function loadMainPage() {
             $("#refreshState").fadeOut(200);
             $('.tooltipped').tooltip({ delay: 50 });
         }).fail(function (e, f, g) {
-            $("#refreshState").fadeOut(200);
-            a.currentTime = 0;
-            a.play();
-            Materialize.toast(e.status == 404 ? lang.network_error : lang.error + g, 2000);
+            if (x.status == 404) {
+                $("#refreshState").fadeOut(200);
+                a.currentTime = 0;
+                a.play();
+                Materialize.toast(lang.network_error, 2000);
+            } else if (x.status == 500) {
+                $("#refreshState").fadeOut(200);
+                a.currentTime = 0;
+                a.play();
+                Materialize.toast(lang.system_error, 2000);
+            } else {
+                $("#refreshState").fadeOut(200);
+                a.currentTime = 0;
+                a.play();
+                Materialize.toast(lang.error + g, 2000);
+            }
         });
 
     });
@@ -869,10 +881,22 @@ function loadHelpPage() {
             $("#refreshState").fadeOut(200);
             $('.collapsible').collapsible({ accordion: true });
         }).fail(function (e, f, g) {
-            $("#refreshState").fadeOut(200);
-            a.currentTime = 0;
-            a.play();
-            Materialize.toast(e.status == 404 ? lang.network_error : lang.error + g, 2000);
+            if (x.status == 404) {
+                $("#refreshState").fadeOut(200);
+                a.currentTime = 0;
+                a.play();
+                Materialize.toast(lang.network_error, 2000);
+            } else if (x.status == 500) {
+                $("#refreshState").fadeOut(200);
+                a.currentTime = 0;
+                a.play();
+                Materialize.toast(lang.system_error, 2000);
+            } else {
+                $("#refreshState").fadeOut(200);
+                a.currentTime = 0;
+                a.play();
+                Materialize.toast(lang.error + g, 2000);
+            }
         });
     });
 }
@@ -888,10 +912,22 @@ function loadAboutPage() {
             $("#refreshState").fadeOut(200);
             $('.collapsible').collapsible({ accordion: true });
         }).fail(function (e, f, g) {
-            $("#refreshState").fadeOut(200);
-            a.currentTime = 0;
-            a.play();
-            Materialize.toast(e.status == 404 ? lang.network_error : lang.error + g, 2000);
+            if (x.status == 404) {
+                $("#refreshState").fadeOut(200);
+                a.currentTime = 0;
+                a.play();
+                Materialize.toast(lang.network_error, 2000);
+            } else if (x.status == 500) {
+                $("#refreshState").fadeOut(200);
+                a.currentTime = 0;
+                a.play();
+                Materialize.toast(lang.system_error, 2000);
+            } else {
+                $("#refreshState").fadeOut(200);
+                a.currentTime = 0;
+                a.play();
+                Materialize.toast(lang.error + g, 2000);
+            }
         });
     });
 }
@@ -924,6 +960,11 @@ function loadEventsPage() {
                 a.play();
                 Materialize.toast(lang.timeout, 2000);
                 location.replace("#");
+            } else if (x.status == 500) {
+                $("#refreshState").fadeOut(200);
+                a.currentTime = 0;
+                a.play();
+                Materialize.toast(lang.system_error, 2000);
             }
             return false;
         });
@@ -955,6 +996,11 @@ function loadEntriesPage() {
                 a.play();
                 Materialize.toast(lang.timeout, 2000);
                 location.replace("#");
+            } else if (x.status == 500) {
+                $("#refreshState").fadeOut(200);
+                a.currentTime = 0;
+                a.play();
+                Materialize.toast(lang.system_error, 2000);
             }
             return false;
         });
@@ -984,6 +1030,11 @@ function loadStatPage() {
                 a.play();
                 Materialize.toast(lang.timeout, 2000);
                 location.replace("#");
+            } else if (x.status == 500) {
+                $("#refreshState").fadeOut(200);
+                a.currentTime = 0;
+                a.play();
+                Materialize.toast(lang.system_error, 2000);
             }
             return false;
         });
@@ -1016,6 +1067,11 @@ function loadHelperPage() {
                 a.play();
                 Materialize.toast(lang.timeout, 2000);
                 location.replace("#");
+            } else if (x.status == 500) {
+                $("#refreshState").fadeOut(200);
+                a.currentTime = 0;
+                a.play();
+                Materialize.toast(lang.system_error, 2000);
             }
             return false;
         });
@@ -1049,6 +1105,11 @@ function loadEnrollPage() {
                 a.play();
                 Materialize.toast(lang.timeout, 2000);
                 location.replace("#");
+            } else if (x.status == 500) {
+                $("#refreshState").fadeOut(200);
+                a.currentTime = 0;
+                a.play();
+                Materialize.toast(lang.system_error, 2000);
             }
             return false;
         });

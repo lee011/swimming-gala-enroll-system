@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['username'])) {
-    $mysqli = mysqli_connect('localhost', 'guest', '', 'swimminggala');
+    $mysqli = mysqli_connect('lee011.kmdns.net', 'guest', '', 'swimminggala');
     mysqli_query($mysqli,"SET NAMES 'utf8'");
     if ($res = mysqli_query($mysqli,"select * from entries where lockpwd = password('" . $_POST["pwd"] . "') and sid = '" . $_SESSION['username'] . "'")) {
         if (mysqli_num_rows($res) == 1) {

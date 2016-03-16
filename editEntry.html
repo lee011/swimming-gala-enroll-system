@@ -3,7 +3,7 @@ session_start();
 include_once "lang/loadLanguage.html";
     if (isset($_SESSION['username'])) {
         if ($_SESSION['usertype'] == 'admin' || $_SESSION['usertype'] == 'helper') {
-            $mysqli = mysqli_connect('localhost', 'guest', '', 'swimminggala');
+            $mysqli = mysqli_connect('lee011.kmdns.net', 'guest', '', 'swimminggala');
             mysqli_query($mysqli,"SET NAMES 'utf8'");
             if ($res = mysqli_query($mysqli,"select * from userinfo where cls = '".$_POST['cls']."' and number = " . $_POST['num'] . "")) {
                 $a = mysqli_fetch_assoc($res);
@@ -49,7 +49,7 @@ include_once "lang/loadLanguage.html";
                         $n = mysqli_fetch_assoc($res2);
                         $indv = explode(",", $n["indveids"]);
                         $rel = explode(",", $n["releids"]);
-                        $d = date_create($n["updateTime"]);
+                        $d = ($n["updateTime"] == '0000-00-00 00:00:00' ? "" : date_create($n["updateTime"]));
                     }
 ?>
 <script>$("#modal3").attr("data-id", "<?=$a['id']?>");</script>
@@ -60,7 +60,7 @@ include_once "lang/loadLanguage.html";
         <?=$lang['label_name']?><?=$a['ename']?> <?=$a['cname']?><br />
         <?=$lang['label_grade']?><?=$s1 . $g?>
     </p>
-    <p><?=$lang['label_last_updated_a']?><?=date_format($d, $lang['date_format'])?><?=$lang['label_last_updated_2']?></p>
+    <p><?php if ($d == "") { echo $lang['label_not_updated_a']; } else { ?><?=$lang['label_last_updated_a']?><?=date_format($d, $lang['date_format'])?><?=$lang['label_last_updated_2']?><?php } ?></p>
     <div class="input-field">
         <select name="afirstiev" id="afirstiev" class="matsel">
             <option value=""><?=$lang['label_not_selected']?></option>

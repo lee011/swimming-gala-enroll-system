@@ -30,11 +30,12 @@
     "verification_timeout": "人機驗證已過期，請重新勾選 [我不是自動程式] 選框。",
     "lock_pwd_incorrect": "密碼錯誤。",
     "lock_pwd_blank": "鎖定密碼不可為空白。",
-    "lock_pwd_length": "鎖定密碼的長度必須至少為 6。",
+    "lock_pwd_length": "鎖定密碼的長度必須至少為 6 個字元。",
     "chart_class": "班別",
     "chart_boys": "男子組報名計數",
     "chart_girls": "女子組報名計數",
     "chart_count": "人次",
     "chart_title": "報名人次圖表 (統計截至 ",
-    "helper_title": "工作人員報名"
+    "helper_title": "工作人員報名",
+    "system_error": "系統錯誤。請聯絡開發人員。"
 }

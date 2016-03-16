@@ -2,7 +2,7 @@
     session_start();
     include_once "lang/loadLanguage.html";
     if (isset($_SESSION['username'])) {
-        $mysqli = mysqli_connect('localhost', 'guest', '', 'swimminggala');
+        $mysqli = mysqli_connect('lee011.kmdns.net', 'guest', '', 'swimminggala');
         mysqli_query($mysqli,"SET NAMES 'utf8'");
         if ($res = mysqli_query($mysqli,"select * from userinfo where id = '".$_SESSION['username']."' ")) {
             $a = mysqli_fetch_assoc($res);
@@ -46,17 +46,26 @@
         <a class="waves-effect waves-light red-text text-lighten-5" onclick="$('#notsecured').slideUp(200)"><?=$lang['label_hide']?></a>
     </div>
 </div>
+<?php
+            if ($res1 = mysqli_query($mysqli,"select * from config")) {
+                $a1 = mysqli_fetch_assoc($res1);
+                if ($a1['showNotice']) {
+?>
 <div class="card red" id="announce">
     <div class="card-content white-text">
-        <span class="card-title"><?=$lang['announcement_title']?></span>
+        <span class="card-title"><?=$langcode=='en'?$a1['noticeTitleE']:$a1['noticeTitleC']?></span>
         <p>
-            <?=$lang['announcement_text']?>
+            <?=$langcode=='en'?$a1['noticeContentE']:$a1['noticeContentC']?>
         </p>
     </div>
     <div class="card-action">
         <a class="waves-effect waves-light red-text text-lighten-5" onclick="$('#announce').slideUp(200)"><?=$lang['label_hide']?></a>
     </div>
 </div>
+<?php
+                }
+            }
+?>
 <div class="card blue-grey">
     <div class="card-content white-text">
         <span class="card-title"><?=$lang['info_title']?></span>

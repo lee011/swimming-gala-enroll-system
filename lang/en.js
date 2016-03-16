@@ -30,11 +30,12 @@
     "verification_timeout": "Human-robot verification expired.",
     "lock_pwd_incorrect": "Password incorrect",
     "lock_pwd_blank": "Locking password must not be blank",
-    "lock_pwd_length": "Length of locking password must be at least 6.",
+    "lock_pwd_length": "Length of locking password must be at least 6 characters.",
     "chart_class": "Class",
     "chart_boys": "Boys Enroll Count",
     "chart_girls": "Girls Enroll Count",
     "chart_count": "Count",
     "chart_title": "Enroll Count Chart (until ",
-    "helper_title": "Apply for Helper"
+    "helper_title": "Apply for Officials",
+    "system_error": "System error occured. Please report to the developers."
 }

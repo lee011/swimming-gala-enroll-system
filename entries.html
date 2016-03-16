@@ -3,7 +3,7 @@ session_start();
 include_once "lang/loadLanguage.html";
     if (isset($_SESSION['username'])) {
         if ($_SESSION['usertype'] == 'admin' || $_SESSION['usertype'] == 'helper') {
-            $mysqli = mysqli_connect('localhost', 'guest', '', 'swimminggala');
+            $mysqli = mysqli_connect('lee011.kmdns.net', 'guest', '', 'swimminggala');
             mysqli_query($mysqli,"SET NAMES 'utf8'"); ?>
 <div>
     <a class="waves-effect waves-light btn" href="outputEntries.html"><?=$lang['label_export']?></a><br />

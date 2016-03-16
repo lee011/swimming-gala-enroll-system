@@ -1,7 +1,7 @@
 ﻿<?php
     session_start();
     if (isset($_SESSION['username'])) {
-        $mysqli = mysqli_connect('localhost', 'guest', '', 'swimminggala');
+        $mysqli = mysqli_connect('lee011.kmdns.net', 'guest', '', 'swimminggala');
         mysqli_query($mysqli,"SET NAMES 'utf8'");
         if ($_POST['post'] == "") {
             if ($res = mysqli_query($mysqli,"delete from helpers where sid = '" . $_SESSION['username'] . "'")) {

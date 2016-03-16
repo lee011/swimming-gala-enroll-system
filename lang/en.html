@@ -47,9 +47,6 @@ Note: The secured connection does not support Windows XP (Except Firefox) or And
     'label_switch_to_ssl'   => 'Switch to secured connection',
     'label_download_cert'   => 'Download certificates required',
     'label_hide'            => 'Hide',
-    'announcement_title'    => 'Notice of Temporary Suspension of Service',
-    'announcement_text'     => 'Due to an electricial device check, the service will not be available from 21/03/2016, 06:30:00 to 21/03/2016, 17:30:00. We apologize for any inconvenience caused.<br />
-(Notice number 160226-C003, effective until 21/03/2016)',
     'info_title'            => 'Your Information',
     'label_cls_no'          => 'Class and Number: ', // also used in editEntry.html
     'label_name'            => 'Name: ', // also used in editEntry.html
@@ -78,8 +75,8 @@ Note: The secured connection does not support Windows XP (Except Firefox) or And
     'label_b_grade'         => 'B', // also used in editEntry.html
     'label_c_grade'         => 'C', // also used in editEntry.html
     'label_no_grade'         => '(No grade specified)', // also used in editEntry.html
-    'helper_title'          => 'Apply for Helper',
-    'helper_text'           => 'You can apply for helper in the apply page.',
+    'helper_title'          => 'Apply for Officials',
+    'helper_text'           => 'You can apply for officials in the apply page.',
     'label_name1'           => 'Name', // also used in editEntry.html
 
     // enroll.html
@@ -91,6 +88,7 @@ Note: The secured connection does not support Windows XP (Except Firefox) or And
     'label_expired'         => 'Enrollment period passed. You can only view the items.',
     'label_last_updated_1'  => 'Your entries last updated at ',
     'label_last_updated_2'  => '.', // also used in editEntry.html
+    'label_not_updated_a'   => 'Your entries have not been updated yet.',
     'label_not_selected'    => 'Not Selected', // also used in editEntry.html
     'label_indv_first'      => 'Individual Event - First', // also used in editEntry.html
     'label_indv_second'     => 'Individual Event - Second', // also used in editEntry.html
@@ -104,7 +102,7 @@ Note: The secured connection does not support Windows XP (Except Firefox) or And
     'tooltip_lock_sel'      => 'Locking selections can prevent others from modifying your entries.',
     'label_not_started'     => 'Enrollment period not started yet. Please try again later.',
     'label_notes_1'         => '1. You can choose at most 3 individual event.',
-    'label_notes_2'         => '2. Please fill in the seperate forms before entering the entries of relay events. <b>Please arrange ONE team member to enter the entries ONLY to prevent computation errors.</b>',
+    'label_notes_2'         => '2. Please fill in seperate forms before entering the entries of relay events. <b>Please arrange ONE team member to enter the entries ONLY to prevent computation errors.</b>',
     'label_notes_3'         => '3. Enrollment period: From ',
     'label_notes_4'         => ' to ',
     'label_notes_5'         => '.',
@@ -120,11 +118,12 @@ Note: The secured connection does not support Windows XP (Except Firefox) or And
     'label_not_found'       => 'No matching items found.',
     'label_changing'        => 'You are modifying:',
     'label_last_updated_a'  => 'Entries last updated at ',
+    'label_not_updated_a'   => 'Entries have not been updated yet.',
     
     // about.html
     'version_title'         => 'Version',
-    'version_text'          => 'Ver. 0.16.0<br />
-Updated on 02/03/2016<br />
+    'version_text'          => 'Ver. 0.16.1<br />
+Updated on 16/03/2016<br />
 &copy; 2015-2016 Kelvin Lee. All rights reserved.',
     'disclaimer_title'      => 'Disclaimer',
     'disclaimer_text'       => 'The information on <b>Sha Tin Methodist College Swimming Gala Enrollment System (Beta) ("The System")</b> is provided to you on an "AS IS" basis without any express or implied warranty of any kind and is provided for a general, indicative purpose only.  In particular, the developers does not make any express or implied warranty as to the accuracy, fitness for a particular purpose, non-infringement, reliability, security, timeliness or freedom from computer virus in relation to such contents.  The developers will not be liable for any errors in, omissions from, or misstatements or misrepresentations (whether express or implied) concerning any such information, and will not have or accept any liability, obligation or responsibility whatsoever for any loss, destruction or damage (including without limitation consequential loss, destruction or damage) however arising from or in respect of any use or misuse of or reliance on the information delivered on the system or inability to use the system.',
@@ -153,16 +152,27 @@ You can view your entries, but cannot edit, after the enrollment period.',
 Get support on <a href="https://www.facebook.com/STMCSportsEventSystems/" target="_blank">our Facebook page</a>.',
 
     // helper.html
-    'label_helper_select'   => 'Apply for Helper',
+    'label_helper_select'   => 'Apply for Officials',
     'label_helper_list'     => 'Applicants List',
     'label_select_post'     => 'Post',
     'label_post'            => 'Post',
-    'label_helper_note'     => 'Note: Posts will be allocated by first-come-first served basis if number of applicants of certain posts is larger than the limit.'
+    'label_helper_note'     => 'Note: Posts will be allocated by first-come-first-served basis if quota of certain posts exceeded.',
+	'label_list_sort'       => 'This list is first sorted by post name in ascending order, and then updated time in ascending order.'
 );
 $helpers = array(
-    'ann' => 'Announcer',
-    'pos' => 'Position Assistant',
-    'tim' => 'Timekeeper'
+    'off' => 'Official Stand Recorders',
+    'pri' => 'Prize Presentation Helper',
+    'mar' => 'Marshals',
+    'mak' => 'Marksman Assistants',
+    'tim' => 'Time-keepers',
+    'pos' => 'Position Assistants',
+    'fin' => 'Finishing Recorders',
+    'run' => 'Runners',
+    'sto' => 'Stoke Judge Assistants',
+    'dis' => 'Display Board Helpers',
+    'fal' => 'False Start Rope Helper',
+    'che' => 'Helpers for Cheering Team Competition',
+    'res' => 'Reserved Helpers'
 );
 ?>
 <?php if(isset($_GET['outcontents'])){ ?>

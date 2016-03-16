@@ -2,7 +2,7 @@
 session_start();
 include_once "lang/loadLanguage.html";
 if (isset($_SESSION['username'])) {
-    $mysqli = mysqli_connect('localhost', 'guest', '', 'swimminggala');
+    $mysqli = mysqli_connect('lee011.kmdns.net', 'guest', '', 'swimminggala');
     mysqli_query($mysqli,"SET NAMES 'utf8'");
     if ($res2 = mysqli_query($mysqli,"select * from helpers where sid = '". $_SESSION['username'] ."' ")) {
         if (mysqli_num_rows($res2) > 0) {
@@ -37,6 +37,7 @@ if (isset($_SESSION['username'])) {
     <a class="waves-effect waves-light btn" id="updatehelper"><?=$lang['label_update']?></a>
 </div>
 <div id="helper-list" style="padding-top: 48px;">
+	<?=$lang['label_list_sort']?><br />
     <table class="bordered">
         <tr>
             <th style="width: 10%"><?=$lang['label_class']?></th>
@@ -44,7 +45,7 @@ if (isset($_SESSION['username'])) {
             <th style="width: 45%"><?=$lang['label_post']?></th>
         </tr>
     <?php
-        if ($res1 = mysqli_query($mysqli, "select helpers.*, userinfo.ename, userinfo.cname, userinfo.cls from helpers inner join userinfo on helpers.sid = userinfo.id")) {
+        if ($res1 = mysqli_query($mysqli, "select helpers.*, userinfo.ename, userinfo.cname, userinfo.cls from helpers inner join userinfo on helpers.sid = userinfo.id order by post asc, updateTime asc")) {
             while ($l = mysqli_fetch_assoc($res1)) { ?>
         <tr>
             <td><?=$l['cls']?></td>

@@ -2,7 +2,7 @@
     session_start();
     include_once "lang/loadLanguage.html";
     if (isset($_SESSION['username'])) {
-        $mysqli = mysqli_connect('localhost', 'guest', '', 'swimminggala');
+        $mysqli = mysqli_connect('lee011.kmdns.net', 'guest', '', 'swimminggala');
         mysqli_query($mysqli,"SET NAMES 'utf8'");
         $arr = array();
         $i = -1;
