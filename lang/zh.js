@@ -1,6 +1,6 @@
 ﻿var lang = {
     "code": "zh",
-    "title": "水運會報名系統 (測試版)",
+    "title": "水運會報名系統",
     "help_title": "說明",
     "about_title": "關於",
     "manage_ev_title": "管理項目資料",
