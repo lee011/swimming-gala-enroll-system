@@ -37,5 +37,6 @@
     "chart_count": "Count",
     "chart_title": "Enroll Count Chart (until ",
     "helper_title": "Apply for Officials",
-    "system_error": "System error occured. Please report to the developers."
+    "system_error": "System error occured. Please report to the developers.",
+    "login_error_blocked": "You have been blocked from logging in due to too many failed login attempts. Please try again later."
 }

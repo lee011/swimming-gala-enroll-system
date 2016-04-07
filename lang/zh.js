@@ -37,5 +37,6 @@
     "chart_count": "人次",
     "chart_title": "報名人次圖表 (統計截至 ",
     "helper_title": "工作人員報名",
-    "system_error": "系統錯誤。請聯絡開發人員。"
+    "system_error": "系統錯誤。請聯絡開發人員。",
+    "login_error_blocked": "由於您多次嘗試登入失敗，您已被暫時禁止登入。請過一段時間後再試。"
 }

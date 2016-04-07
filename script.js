@@ -547,6 +547,11 @@ $(function () {
                     console.log(d.jsontext);
                     c.currentTime = 0;
                     c.play();
+                } else if (d.success == -5) {
+                    $("#refreshState").fadeOut(200);
+                    Materialize.toast(lang.login_error_blocked, 2000);
+                    c.currentTime = 0;
+                    c.play();
                 }
             }
         }).fail(function (e, f, g) {
@@ -1152,6 +1157,7 @@ var onloadCallback = function () {
 function tryCaptcha(value) {
     captchaValue = value;
     console.log(value);
+    $("#confirm").removeClass("disabled");
 }
 
 function captchaExp(value) {
@@ -1160,6 +1166,7 @@ function captchaExp(value) {
     b.play();
     Materialize.toast(lang.verification_timeout, 2000);
     console.log("captcha expired");
+    $("#confirm").addClass("disabled");
 }
 
 function checkLockPwd() {
